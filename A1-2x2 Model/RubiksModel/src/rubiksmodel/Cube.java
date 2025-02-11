@@ -12,7 +12,8 @@ public class Cube {
     ///     y y
     ///     y y
     /// In this case, each character represents a "sticker" on the face of the cube.  
-    /// THe net is spoken about with the assumption that the viewer is looking at the right face of the cube.
+    /// In the examples, the net is spoken about with the assumption that the viewer is looking at the red face of the cube.
+    /// The green face is facing towards the ground. The orange face is on the opposite side of the cube from the viewer.
     private char[][] net;
 
     ////// Cube Constructor 

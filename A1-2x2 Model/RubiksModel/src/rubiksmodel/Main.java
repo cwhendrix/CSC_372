@@ -20,8 +20,12 @@ public class Main {
     /// 3. Rotate Top
     /// 4. Rotate Bottom
     /// 5. Rotate Back
-    /// 6. Randomize Cube
-    /// 7. Reset
+    /// 6. Turn cube along X-axis
+    /// 7. Turn cube along Y-axis
+    /// 8. Turn cube along Z-axis
+    /// 9. Randomize Cube
+    /// 10. Reset
+    /// 11. Exit
     public void guiPrint(Cube cube) {
 
     }
