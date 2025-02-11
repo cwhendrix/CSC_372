@@ -12,6 +12,7 @@ public class Cube {
     ///     y y
     ///     y y
     /// In this case, each character represents a "sticker" on the face of the cube.  
+    /// THe net is spoken about with the assumption that the viewer is looking at the right face of the cube.
     private char[][] net;
 
     ////// Cube Constructor 
@@ -19,12 +20,6 @@ public class Cube {
     /// 
     public Cube() {
 
-    }
-
-    ////// randomizeCube Function
-    /// Returns this cube, which has been randomized by turning it a random number of times. 
-    public Cube randomizeCube() {
-        return this;
     }
 
     ////// isSolved Function
