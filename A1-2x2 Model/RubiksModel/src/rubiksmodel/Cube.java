@@ -1,24 +1,40 @@
 package rubiksmodel;
 
 public class Cube {
-    ////// Net attribute
-    /// The Net attribute is a 2-D array of characters which represents the cube in a flat format.
-    /// This is the primary way in which we will manipulate the cube in this simulation.
-    /// A net of a cube in its solved state looks as follows:
+    ////// cubeletOrder attribute
+    /// This attribute, consisting of an array of characters, represents the order in which the cubelets are arranged. 
+    /// "Cubelet" refers to the small, individual cubes which make up a 2x2 Rubik's Cube.
+    /// The default arrangement of these cubelets is shown below, showing the colors in their standard positions.
     ///     w w
     ///     w w
     /// g g r r b b o o
     /// g g r r b b o o
     ///     y y
     ///     y y
-    /// In this case, each character represents a "sticker" on the face of the cube.  
-    /// In the examples, the net is spoken about with the assumption that the viewer is looking at the red face of the cube.
-    /// The green face is facing towards the ground. The orange face is on the opposite side of the cube from the viewer.
-    private char[][] net;
+    /// Next, each cubelet is marked with a letter a-h.
+    ///     g f
+    ///     d c
+    /// g d d c c f f g
+    /// h a a b b e e h
+    ///     a b
+    ///     h e
+    /// Each of the eight orientations which a cube can be placed in is labeled with a number, 0-7. 
+    /// Those orientations are shown as follows:
+    ///     6 5
+    ///     1 2
+    /// 6 1 1 2 2 5 5 6
+    /// 7 0 0 3 3 4 4 7
+    ///     0 3
+    ///     7 4
+    /// The position of the cubelets' characters in the array indicates their orientation.
+    /// For the above example, the 'a' cubelet, because it is in the 0 orientation, has its position set to cubeletOrder[0].
+    /// The full cubeletOrder for the above example cube would be:
+    /// cubeletOrder = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+    private char[] cubeletOrder;
 
     ////// Cube Constructor 
     /// Generates a cube in a solved state.
-    /// 
+    /// That solved state will have cubeletOrder = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     public Cube() {
 
     }
@@ -32,14 +48,14 @@ public class Cube {
     }
 
     ////// getNet Function
-    /// Returns the net attribute, a 2-D representation of the cube. 
-    public char[][] getNet() {
-        return net;
+    /// Returns the cubeletOrder attribute. 
+    public char[] getCubeletOrder() {
+        return cubeletOrder;
     }
     ////// setNet Function
-    /// Allows you to set the net attribute.
-    public void setNet(char[][] net) {
-        this.net = net;
+    /// Allows you to set the cubeletOrder attribute.
+    public void setNet(char[] cubeletOrder) {
+        this.cubeletOrder = cubeletOrder;
     }
 
 
