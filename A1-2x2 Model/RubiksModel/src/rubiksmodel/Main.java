@@ -15,17 +15,15 @@ public class Main {
     ///     y y
     ///     y y
     /// Next move:
-    /// 1. Rotate Right
-    /// 2. Rotate Left
-    /// 3. Rotate Top
-    /// 4. Rotate Bottom
-    /// 5. Rotate Back
-    /// 6. Turn cube along X-axis
-    /// 7. Turn cube along Y-axis
-    /// 8. Turn cube along Z-axis
-    /// 9. Randomize Cube
-    /// 10. Reset
-    /// 11. Exit
+    /// 1. F-Turn
+    /// 2. L-Turn
+    /// 3. U-Turn
+    /// 4. R-Turn
+    /// 5. B-Turn
+    /// 6. D-Turn
+    /// 7. Check if solved. 
+    /// 8. Randomize cube.
+    /// 9. Exit.
     public void guiPrint(Cube cube) {
 
     }

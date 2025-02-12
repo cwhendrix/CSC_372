@@ -2,143 +2,99 @@ package rubiksmodel;
 
 public class CubeManipulator {
 
+    ////// The turnTable attribute
+    /// The turnTable attribute is a 2-D array of characters.
+    /// It is utilized to show, when a given move is performed,
+    /// where the cubelet in a given orientation will be. 
+    /// The table's values are as shown below:
+    ///     F L U R B D
+    /// 0 | 7 0 0 1 0 3
+    /// 1 | 0 1 6 2 1 1
+    /// 2 | 2 2 1 3 5 2
+    /// 3 | 3 3 3 0 2 4
+    /// 4 | 4 5 4 4 3 7
+    /// 5 | 5 6 2 5 4 5
+    /// 6 | 1 7 5 6 6 6
+    /// 7 | 6 4 7 7 7 0
+    /// For example, when the F move is performed, whatever cubelet which is in the 0 position
+    /// will be relocated to the 7 position. At the same time, the cubelet in the 1 position will be
+    /// relocated to the 0 position, and so on.
+    /// This table forms the basic functionality of the cube; that is, being able to turn. 
+    char[][] turnTable;
+
     ////// CubeManipulator Constructor
     /// This is the constructor for this class.
     /// This class handles the alterations of the Cube for the purpose of solving it.
+    /// I have decided to use the same face/turn notation used bby cubers, since it was standardized and
+    /// easy to remember. They use letters to denote turns about specific faces.
+    /// The letters which correspond to each face are as follows:
+    /// F = Green face
+    /// L = Orange face
+    /// U = White face
+    /// R = Red face
+    /// B = Blue face
+    /// D = Yellow face
+    /// So, when something is referred to as a "F turn", it will involve turning the cubelets about the
+    /// green face (or the face where, when solved, the stickers on the cube are entirely green.) 
     public CubeManipulator() {
 
     }
-    ////// rotateRight Function
-    /// Function which rotates the right side of the face being viewed. 
-    /// After calling this function (with 1 as the argument), 
-    /// the net of the solved Cube (as seen in the description of the net attribute) would look like this:
-    ///     w w
-    ///     w w
-    /// g g r r b b o o
-    /// r r b b o o g g
-    ///     y y
-    ///     y y
-    /// numMoves denotes the number of times that this move should be performed. 
-    /// A negative numMoves indicates that the move be done counter (i.e. the right side is rotated down.)
-    /// The net of the cube is altered within the body of this function.
-    public void rotateRight(int numMoves, Cube cube) {
-        
+
+    ////// F-Turn function
+    /// The F-Turn function turns the cube about the green face. 
+    /// This function takes the cube as a parameter and changes the cubeletOrder according to the 
+    /// turnTable lookup table. 
+    /// This function can be called in succession in order to perform the turn multiple times.
+    public void fTurn(Cube cube) {
+
+    }
+    
+
+    ////// L-Turn function
+    /// The L-Turn function turns the cube about the orange face. 
+    /// This function takes the cube as a parameter and changes the cubeletOrder according to the 
+    /// turnTable lookup table. 
+    /// This function can be called in succession in order to perform the turn multiple times.
+    public void lTurn(Cube cube) {
+
     }
 
-    ////// rotateLeft Function
-    /// Function which rotates the left side of the face being viewed. 
-    /// After calling this function (with 1 as the argument), 
-    /// the net of the solved Cube (as seen in the description of the net attribute) would look like this:
-    ///     w w
-    ///     w w
-    /// r r b b o o g g
-    /// g g r r b b o o
-    ///     y y
-    ///     y y
-    /// numMoves denotes the number of times that this move should be performed. 
-    /// A negative numMoves indicates that the move be done counter (i.e. the left side is rotated down.)
-    /// The net of the cube is altered within the body of this function.
-    public void rotateLeft(int numMoves, Cube cube) {
-        
+    ////// U-Turn function
+    /// The U-Turn function turns the cube about the white face. 
+    /// This function takes the cube as a parameter and changes the cubeletOrder according to the 
+    /// turnTable lookup table. 
+    /// This function can be called in succession in order to perform the turn multiple times.
+    public void uTurn(Cube cube) {
+
     }
 
-    ////// rotateTop Function
-    /// Function which rotates the top layer of the face being viewed. 
-    /// After calling this function (with 1 as the argument), 
-    /// the net of the solved Cube (as seen in the description of the net attribute) would look like this:
-    ///     w o
-    ///     w o
-    /// g g r w b b y o
-    /// g g r w b b y o
-    ///     y r
-    ///     y r
-    /// numMoves denotes the number of times that this move should be performed. 
-    /// A negative numMoves indicates that the move be done counter (i.e. the top layer is rotated to the left.)
-    /// The net of the cube is altered within the body of this function.
-    public void rotateTop(int numMoves, Cube cube) {
-        
-    }
-    ////// rotateBottom Function
-    /// Function which rotates the bottom layer of the face being viewed. 
-    /// After calling this function (with 1 as the argument), 
-    /// the net of the solved Cube (as seen in the description of the net attribute) would look like this:
-    ///     o w
-    ///     o w
-    /// g g w r b b o y
-    /// g g w r b b o y
-    ///     r y
-    ///     r y
-    /// numMoves denotes the number of times that this move should be performed. 
-    /// A negative numMoves indicates that the move be done counter (i.e. the bottom layer is rotated to the left.)
-    /// The net of the cube is altered within the body of this function.
-    public void rotateBottom(int numMoves, Cube cube) {
-        
-    }
-    ////// rotateBack Function
-    /// Function which rotates the back face of the cube. 
-    /// After calling this function (with 1 as the argument), 
-    /// the net of the solved Cube (as seen in the description of the net attribute) would look like this:
-    ///     b b
-    ///     w w
-    /// w g r r b y o o
-    /// w g r r b y o o
-    ///     y y
-    ///     g g
-    /// numMoves denotes the number of times that this move should be performed. 
-    /// A negative numMoves indicates that the move be done counter (i.e. the back layer is rotated to the viewer's right.)
-    /// The net of the cube is altered within the body of this function.
-    public void rotateBack(int numMoves, Cube cube) {
-        
+    ////// R-Turn function
+    /// The R-Turn function turns the cube about the red face. 
+    /// This function takes the cube as a parameter and changes the cubeletOrder according to the 
+    /// turnTable lookup table. 
+    /// This function can be called in succession in order to perform the turn multiple times.
+    public void rTurn(Cube cube) {
+
     }
 
-    ////// turnX Function
-    /// Function which turns the cube along the X axis. 
-    /// After calling this function (with 1 as the argument), 
-    /// the net of the solved Cube (as seen in the description of the net attribute) would look like this:
-    ///     w w
-    ///     w w
-    /// o o g g r r b b
-    /// o o g g r r b b
-    ///     y y
-    ///     y y
-    /// numMoves denotes the number of times that this move should be performed. 
-    /// A negative numMoves indicates that the move be done counter (i.e. the cube is turned down.)
-    /// The net of the cube is altered within the body of this function.
-    public void turnX(int numMoves, Cube cube) {
-        
+    ////// B-Turn function
+    /// The B-Turn function turns the cube about the blue face. 
+    /// This function takes the cube as a parameter and changes the cubeletOrder according to the 
+    /// turnTable lookup table. 
+    /// This function can be called in succession in order to perform the turn multiple times.
+    public void bTurn(Cube cube) {
+
     }
-    ////// turnY Function
-    /// Function which turns the cube along the Y axis. 
-    /// After calling this function (with 1 as the argument), 
-    /// the net of the solved Cube (as seen in the description of the net attribute) would look like this:
-    ///     o o
-    ///     o o
-    /// g g w w b b y y
-    /// g g w w b b y y
-    ///     r r
-    ///     r r
-    /// numMoves denotes the number of times that this move should be performed. 
-    /// A negative numMoves indicates that the move be done counter (i.e. the cube is turned to the left.)
-    /// The net of the cube is altered within the body of this function.
-    public void turnY(int numMoves, Cube cube) {
-        
+
+    ////// D-Turn function
+    /// The D-Turn function turns the cube about the yellow face. 
+    /// This function takes the cube as a parameter and changes the cubeletOrder according to the 
+    /// turnTable lookup table. 
+    /// This function can be called in succession in order to perform the turn multiple times.
+    public void dTurn(Cube cube) {
+
     }
-    ////// turnZ Function
-    /// Function which turns the cube along the Z axis. 
-    /// After calling this function (with 1 as the argument), 
-    /// the net of the solved Cube (as seen in the description of the net attribute) would look like this:
-    ///     b b
-    ///     b b
-    /// w w r r y y o o
-    /// w w r r y y o o
-    ///     g g
-    ///     g g
-    /// numMoves denotes the number of times that this move should be performed. 
-    /// A negative numMoves indicates that the move be done counter (i.e. the cube is spun clockwise.)
-    /// The net of the cube is altered within the body of this function.
-    public void turnZ(int numMoves, Cube cube) {
-        
-    }
+
     ////// randomizeCube Function
     /// Randomizes a given cube by turning it a random number of times. 
     public Cube randomizeCube(Cube cube) {

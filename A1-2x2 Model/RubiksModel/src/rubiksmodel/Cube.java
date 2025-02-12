@@ -47,14 +47,20 @@ public class Cube {
             return false;
     }
 
-    ////// getNet Function
+    ////// getCopy Function
+    /// Function which returns a deep copy of the cube.
+    public Cube getCopy() {
+        return null;
+    }
+
+    ////// getCubeletOrder Function
     /// Returns the cubeletOrder attribute. 
     public char[] getCubeletOrder() {
         return cubeletOrder;
     }
-    ////// setNet Function
+    ////// setCubeletOrder Function
     /// Allows you to set the cubeletOrder attribute.
-    public void setNet(char[] cubeletOrder) {
+    public void setCubeletOrder(char[] cubeletOrder) {
         this.cubeletOrder = cubeletOrder;
     }
 
