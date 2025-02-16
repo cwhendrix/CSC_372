@@ -30,13 +30,18 @@ public class Cube {
     /// For the above example, the 'a' cubelet, because it is in the 0 orientation, has its position set to cubeletOrder[0].
     /// The full cubeletOrder for the above example cube would be:
     /// cubeletOrder = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
-    private char[] cubeletOrder;
+    private char[] cubeletOrder = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 
     ////// Cube Constructor 
     /// Generates a cube in a solved state.
     /// That solved state will have cubeletOrder = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     public Cube() {
+    }
 
+    ////// Alternate Cube Constructor
+    /// Allows you to generate a cube with a given cubelet order.
+    public Cube(char[] cubeletOrder) {
+        this.setCubeletOrder(cubeletOrder);
     }
 
     ////// isSolved Function
@@ -50,7 +55,8 @@ public class Cube {
     ////// getCopy Function
     /// Function which returns a deep copy of the cube.
     public Cube getCopy() {
-        return null;
+        Cube newCube = new Cube(this.getCubeletOrder());
+        return newCube;
     }
 
     ////// getCubeletOrder Function

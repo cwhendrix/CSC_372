@@ -20,7 +20,24 @@ public class CubeManipulator {
     /// will be relocated to the 7 position. At the same time, the cubelet in the 1 position will be
     /// relocated to the 0 position, and so on.
     /// This table forms the basic functionality of the cube; that is, being able to turn. 
-    char[][] turnTable;
+    public int[][] turnTable = {{7, 0, 0, 1, 0, 3}, 
+                                {0, 1, 6, 2, 1, 1}, 
+                                {2, 2, 1, 3, 5, 2},
+                                {3, 3, 3, 0, 2, 4},
+                                {4, 5, 4, 4, 3, 7},
+                                {5, 6, 2, 5, 4, 5},
+                                {1, 7, 5, 6, 6, 6},
+                                {6, 4, 7, 7, 7, 0}};
+    private char turnSymbol;     /// Used to hold whatever the current turn being performed is
+
+
+    public char getTurnSymbol() {
+        return turnSymbol;
+    }
+
+    public void setTurnSymbol(char turnSymbol) {
+        this.turnSymbol = turnSymbol;
+    }
 
     ////// CubeManipulator Constructor
     /// This is the constructor for this class.
@@ -36,9 +53,7 @@ public class CubeManipulator {
     /// D = Yellow face
     /// So, when something is referred to as a "F turn", it will involve turning the cubelets about the
     /// green face (or the face where, when solved, the stickers on the cube are entirely green.) 
-    public CubeManipulator() {
-
-    }
+    public CubeManipulator() {}
 
     ////// F-Turn function
     /// The F-Turn function turns the cube about the green face. 
