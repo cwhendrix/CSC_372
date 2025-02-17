@@ -1,5 +1,7 @@
 package rubiksmodel;
 
+import java.util.Arrays;
+
 public class CubeManipulator {
 
     ////// The turnTable attribute
@@ -61,7 +63,19 @@ public class CubeManipulator {
     /// turnTable lookup table. 
     /// This function can be called in succession in order to perform the turn multiple times.
     public void fTurn(Cube cube) {
-
+        // int temp = -1; to hold values while reassigning cubeletOrder values
+        char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
+        char currCubelet;
+        // F-Turn = column 0 of turnTable
+        for (int i=0; i<(cube.getCubeletOrder().length); i++) {
+            // System.out.println("Current Position: " + i);
+            // System.out.println("Cubelet in Position " + i + ": " + cube.getCubeletOrder()[i]);
+            currCubelet = cube.getCubeletOrder()[i];
+            // System.out.println("New position for " + cube.getCubeletOrder()[i] + ": " + turnTable[i][0]);
+            newCubeletOrder[turnTable[i][0]] = currCubelet;
+            // System.out.println("NewCubeletOrder:" + Arrays.toString(newCubeletOrder));
+        }
+        cube.setCubeletOrder(newCubeletOrder);
     }
     
 

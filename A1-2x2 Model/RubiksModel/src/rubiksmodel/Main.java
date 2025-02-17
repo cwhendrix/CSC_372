@@ -43,13 +43,16 @@ public class Main {
             //TODO: Handle invalid input
         }
     
-        public static void main(String[] args) {
-            CubeManipulator cubeManip = new CubeManipulator();
-            Cube cube = new Cube();
+    public static void main(String[] args) {
+        CubeManipulator cubeManip = new CubeManipulator();
+        Cube cube = new Cube();
+        int response = -1;
 
-            int response = guiPrint(cube);
+        while (response != 9) {
+            response = guiPrint(cube);
             if (response == 1) {
                 System.out.println("F-Turn Chosen");
+                cubeManip.fTurn(cube);
             } else if (response == 2) {
                 System.out.println("L-Turn Chosen");
             } else if (response == 3) {
@@ -69,7 +72,6 @@ public class Main {
             } else {
                 System.out.println("Invalid input detected");
             }
-
-
+        }
     }
 }
