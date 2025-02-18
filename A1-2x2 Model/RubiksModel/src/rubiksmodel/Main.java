@@ -68,14 +68,20 @@ public class Main {
             } else if (response == 6) {
                 // System.out.println("D-Turn Chosen");
             } else if (response == 7) {
-                System.out.println("Check Chosen");
+                // System.out.println("Check Chosen");
+                boolean solved = cube.isSolved();
+                if (solved) {
+                    System.out.println("Cube is solved.");
+                } else {
+                    System.out.println("Cube is not solved.");
+                }
             } else if (response == 8) {
-                System.out.println("Randomize Chosen");
+                // System.out.println("Randomize Chosen");
                 cubeManip.randomizeCube(cube);
             } else if (response == 9) {
-                System.out.println("Exit Chosen");
+                // System.out.println("Exit Chosen");
             } else {
-                System.out.println("Invalid input detected");
+                System.out.println("Invalid input detected. Please try again.");
             }
         }
     }

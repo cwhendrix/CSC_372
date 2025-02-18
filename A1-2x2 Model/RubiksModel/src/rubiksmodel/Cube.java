@@ -49,7 +49,24 @@ public class Cube {
     /// Returns TRUE if the cube is in a solved state.
     /// Returns FALSE if the cube is not in a solved state.
     public boolean isSolved() {
+        if (cubeletOrder[0] != 'a') {
             return false;
+        } else if (cubeletOrder[1] != 'b') {
+            return false;
+        } else if (cubeletOrder[2] != 'c') {
+            return false;
+        } else if (cubeletOrder[3] != 'd') {
+            return false;
+        } else if (cubeletOrder[4] != 'e') {
+            return false;
+        } else if (cubeletOrder[5] != 'f') {
+            return false;
+        } else if (cubeletOrder[6] != 'g') {
+            return false;
+        } else if (cubeletOrder[7] != 'h') {
+            return false;
+        }
+        return true;
     }
 
     ////// getCopy Function
