@@ -1,6 +1,7 @@
 package rubiksmodel;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class CubeManipulator {
 
@@ -63,7 +64,6 @@ public class CubeManipulator {
     /// turnTable lookup table. 
     /// This function can be called in succession in order to perform the turn multiple times.
     public void fTurn(Cube cube) {
-        // int temp = -1; to hold values while reassigning cubeletOrder values
         char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
         char currCubelet;
         // F-Turn = column 0 of turnTable
@@ -85,7 +85,18 @@ public class CubeManipulator {
     /// turnTable lookup table. 
     /// This function can be called in succession in order to perform the turn multiple times.
     public void lTurn(Cube cube) {
-
+        char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
+        char currCubelet;
+        // L-Turn = column 1 of turnTable
+        for (int i=0; i<(cube.getCubeletOrder().length); i++) {
+            // System.out.println("Current Position: " + i);
+            // System.out.println("Cubelet in Position " + i + ": " + cube.getCubeletOrder()[i]);
+            currCubelet = cube.getCubeletOrder()[i];
+            // System.out.println("New position for " + cube.getCubeletOrder()[i] + ": " + turnTable[i][1]);
+            newCubeletOrder[turnTable[i][1]] = currCubelet;
+            // System.out.println("NewCubeletOrder:" + Arrays.toString(newCubeletOrder));
+        }
+        cube.setCubeletOrder(newCubeletOrder);
     }
 
     ////// U-Turn function
@@ -94,7 +105,18 @@ public class CubeManipulator {
     /// turnTable lookup table. 
     /// This function can be called in succession in order to perform the turn multiple times.
     public void uTurn(Cube cube) {
-
+        char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
+        char currCubelet;
+        // U-Turn = column 2 of turnTable
+        for (int i=0; i<(cube.getCubeletOrder().length); i++) {
+            // System.out.println("Current Position: " + i);
+            // System.out.println("Cubelet in Position " + i + ": " + cube.getCubeletOrder()[i]);
+            currCubelet = cube.getCubeletOrder()[i];
+            // System.out.println("New position for " + cube.getCubeletOrder()[i] + ": " + turnTable[i][2]);
+            newCubeletOrder[turnTable[i][2]] = currCubelet;
+            // System.out.println("NewCubeletOrder:" + Arrays.toString(newCubeletOrder));
+        }
+        cube.setCubeletOrder(newCubeletOrder);
     }
 
     ////// R-Turn function
@@ -103,7 +125,18 @@ public class CubeManipulator {
     /// turnTable lookup table. 
     /// This function can be called in succession in order to perform the turn multiple times.
     public void rTurn(Cube cube) {
-
+        char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
+        char currCubelet;
+        // R-Turn = column 3 of turnTable
+        for (int i=0; i<(cube.getCubeletOrder().length); i++) {
+            // System.out.println("Current Position: " + i);
+            // System.out.println("Cubelet in Position " + i + ": " + cube.getCubeletOrder()[i]);
+            currCubelet = cube.getCubeletOrder()[i];
+            // System.out.println("New position for " + cube.getCubeletOrder()[i] + ": " + turnTable[i][3]);
+            newCubeletOrder[turnTable[i][3]] = currCubelet;
+            // System.out.println("NewCubeletOrder:" + Arrays.toString(newCubeletOrder));
+        }
+        cube.setCubeletOrder(newCubeletOrder);
     }
 
     ////// B-Turn function
@@ -112,7 +145,18 @@ public class CubeManipulator {
     /// turnTable lookup table. 
     /// This function can be called in succession in order to perform the turn multiple times.
     public void bTurn(Cube cube) {
-
+        char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
+        char currCubelet;
+        // B-Turn = column 4 of turnTable
+        for (int i=0; i<(cube.getCubeletOrder().length); i++) {
+            // System.out.println("Current Position: " + i);
+            // System.out.println("Cubelet in Position " + i + ": " + cube.getCubeletOrder()[i]);
+            currCubelet = cube.getCubeletOrder()[i];
+            // System.out.println("New position for " + cube.getCubeletOrder()[i] + ": " + turnTable[i][4]);
+            newCubeletOrder[turnTable[i][4]] = currCubelet;
+            // System.out.println("NewCubeletOrder:" + Arrays.toString(newCubeletOrder));
+        }
+        cube.setCubeletOrder(newCubeletOrder);
     }
 
     ////// D-Turn function
@@ -121,12 +165,42 @@ public class CubeManipulator {
     /// turnTable lookup table. 
     /// This function can be called in succession in order to perform the turn multiple times.
     public void dTurn(Cube cube) {
-
+        char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
+        char currCubelet;
+        // D-Turn = column 5 of turnTable
+        for (int i=0; i<(cube.getCubeletOrder().length); i++) {
+            // System.out.println("Current Position: " + i);
+            // System.out.println("Cubelet in Position " + i + ": " + cube.getCubeletOrder()[i]);
+            currCubelet = cube.getCubeletOrder()[i];
+            // System.out.println("New position for " + cube.getCubeletOrder()[i] + ": " + turnTable[i][5]);
+            newCubeletOrder[turnTable[i][5]] = currCubelet;
+            // System.out.println("NewCubeletOrder:" + Arrays.toString(newCubeletOrder));
+        }
+        cube.setCubeletOrder(newCubeletOrder);
     }
 
     ////// randomizeCube Function
     /// Randomizes a given cube by turning it a random number of times. 
     public Cube randomizeCube(Cube cube) {
+        Random rand = new Random();
+        int numMoves = rand.nextInt(100);
+        int move;
+        for (int i=0; i < numMoves; i++) {
+            move = rand.nextInt(6);
+            if (move == 0) {
+                this.fTurn(cube);
+            } else if (move == 1) {
+                this.lTurn(cube);
+            } else if (move == 2) {
+                this.uTurn(cube);
+            } else if (move == 3) {
+                this.rTurn(cube);
+            } else if (move == 4) {
+                this.bTurn(cube);
+            } else {
+                this.dTurn(cube);
+            }
+        }
         return cube;
     }
 }

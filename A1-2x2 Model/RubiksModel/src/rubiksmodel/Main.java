@@ -38,7 +38,7 @@ public class Main {
                             "8. Randomize cube.\n" + 
                             "9. Exit.\n");
             System.out.println("Input:");
-            response = scn.nextInt();
+            response = Integer.valueOf(scn.nextLine());        
             return response;    
             //TODO: Handle invalid input
         }
@@ -51,22 +51,27 @@ public class Main {
         while (response != 9) {
             response = guiPrint(cube);
             if (response == 1) {
-                System.out.println("F-Turn Chosen");
+                // System.out.println("F-Turn Chosen");
                 cubeManip.fTurn(cube);
             } else if (response == 2) {
-                System.out.println("L-Turn Chosen");
+                // System.out.println("L-Turn Chosen");
+                cubeManip.lTurn(cube);
             } else if (response == 3) {
-                System.out.println("U-Turn Chosen");
+                // System.out.println("U-Turn Chosen");
+                cubeManip.uTurn(cube);
             } else if (response == 4) {
-                System.out.println("R-Turn Chosen");
+                // System.out.println("R-Turn Chosen");
+                cubeManip.rTurn(cube);
             } else if (response == 5) {
-                System.out.println("B-Turn Chosen");
+                // System.out.println("B-Turn Chosen");
+                cubeManip.bTurn(cube);
             } else if (response == 6) {
-                System.out.println("D-Turn Chosen");
+                // System.out.println("D-Turn Chosen");
             } else if (response == 7) {
                 System.out.println("Check Chosen");
             } else if (response == 8) {
                 System.out.println("Randomize Chosen");
+                cubeManip.randomizeCube(cube);
             } else if (response == 9) {
                 System.out.println("Exit Chosen");
             } else {
