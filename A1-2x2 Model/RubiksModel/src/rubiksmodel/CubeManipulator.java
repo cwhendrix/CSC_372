@@ -31,6 +31,26 @@ public class CubeManipulator {
                                 {5, 6, 2, 5, 4, 5},
                                 {1, 7, 5, 6, 6, 6},
                                 {6, 4, 7, 7, 7, 0}};
+    ////// ReverseTable Attribute
+    /// This performs the same function for the turnTable attribute; however,
+    /// It tracks what position a cubelet will move to when the reverse operation is performed.
+    ///     F' L' U' R' B' D'
+    /// 0 | 1  0  0  3  0  7
+    /// 1 | 6  1  2  0  1  1
+    /// 2 | 2  2  5  1  3  2
+    /// 3 | 3  3  3  2  4  0
+    /// 4 | 4  7  4  4  5  3
+    /// 5 | 5  4  6  5  2  5
+    /// 6 | 7  5  1  6  6  6
+    /// 7 | 0  6  7  7  7  4
+    public int[][] reverseTable = {{1, 0, 0, 3, 0, 7},
+                                   {6, 1, 2, 0, 1, 1},
+                                   {2, 2, 5, 1, 3, 2},
+                                   {3, 3, 3, 2, 4, 0},
+                                   {4, 7, 4, 4, 5, 3},
+                                   {5, 4, 6, 5, 2, 5},
+                                   {7, 5, 1, 6, 6, 6},
+                                   {0, 6, 7, 7, 7, 4}};
     private char turnSymbol;     /// Used to hold whatever the current turn being performed is
 
 
@@ -60,10 +80,11 @@ public class CubeManipulator {
 
     ////// F-Turn function
     /// The F-Turn function turns the cube about the green face. 
-    /// This function takes the cube as a parameter and changes the cubeletOrder according to the 
-    /// turnTable lookup table. 
+    /// This function changes the cubeletOrder according to the lookup table. 
+    /// The currTable parameter is the lookup table to be used.
+    /// The cube parameter is whatever cube is currently being altered.
     /// This function can be called in succession in order to perform the turn multiple times.
-    public void fTurn(Cube cube) {
+    public void fTurn(int[][] currTable, Cube cube) {
         char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
         char currCubelet;
         // F-Turn = column 0 of turnTable
@@ -72,7 +93,7 @@ public class CubeManipulator {
             // System.out.println("Cubelet in Position " + i + ": " + cube.getCubeletOrder()[i]);
             currCubelet = cube.getCubeletOrder()[i];
             // System.out.println("New position for " + cube.getCubeletOrder()[i] + ": " + turnTable[i][0]);
-            newCubeletOrder[turnTable[i][0]] = currCubelet;
+            newCubeletOrder[currTable[i][0]] = currCubelet;
             // System.out.println("NewCubeletOrder:" + Arrays.toString(newCubeletOrder));
         }
         cube.setCubeletOrder(newCubeletOrder);
@@ -84,7 +105,7 @@ public class CubeManipulator {
     /// This function takes the cube as a parameter and changes the cubeletOrder according to the 
     /// turnTable lookup table. 
     /// This function can be called in succession in order to perform the turn multiple times.
-    public void lTurn(Cube cube) {
+    public void lTurn(int[][] currTable, Cube cube) {
         char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
         char currCubelet;
         // L-Turn = column 1 of turnTable
@@ -93,7 +114,7 @@ public class CubeManipulator {
             // System.out.println("Cubelet in Position " + i + ": " + cube.getCubeletOrder()[i]);
             currCubelet = cube.getCubeletOrder()[i];
             // System.out.println("New position for " + cube.getCubeletOrder()[i] + ": " + turnTable[i][1]);
-            newCubeletOrder[turnTable[i][1]] = currCubelet;
+            newCubeletOrder[currTable[i][1]] = currCubelet;
             // System.out.println("NewCubeletOrder:" + Arrays.toString(newCubeletOrder));
         }
         cube.setCubeletOrder(newCubeletOrder);
@@ -104,7 +125,7 @@ public class CubeManipulator {
     /// This function takes the cube as a parameter and changes the cubeletOrder according to the 
     /// turnTable lookup table. 
     /// This function can be called in succession in order to perform the turn multiple times.
-    public void uTurn(Cube cube) {
+    public void uTurn(int[][] currTable, Cube cube) {
         char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
         char currCubelet;
         // U-Turn = column 2 of turnTable
@@ -113,7 +134,7 @@ public class CubeManipulator {
             // System.out.println("Cubelet in Position " + i + ": " + cube.getCubeletOrder()[i]);
             currCubelet = cube.getCubeletOrder()[i];
             // System.out.println("New position for " + cube.getCubeletOrder()[i] + ": " + turnTable[i][2]);
-            newCubeletOrder[turnTable[i][2]] = currCubelet;
+            newCubeletOrder[currTable[i][2]] = currCubelet;
             // System.out.println("NewCubeletOrder:" + Arrays.toString(newCubeletOrder));
         }
         cube.setCubeletOrder(newCubeletOrder);
@@ -124,7 +145,7 @@ public class CubeManipulator {
     /// This function takes the cube as a parameter and changes the cubeletOrder according to the 
     /// turnTable lookup table. 
     /// This function can be called in succession in order to perform the turn multiple times.
-    public void rTurn(Cube cube) {
+    public void rTurn(int[][] currTable, Cube cube) {
         char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
         char currCubelet;
         // R-Turn = column 3 of turnTable
@@ -133,7 +154,7 @@ public class CubeManipulator {
             // System.out.println("Cubelet in Position " + i + ": " + cube.getCubeletOrder()[i]);
             currCubelet = cube.getCubeletOrder()[i];
             // System.out.println("New position for " + cube.getCubeletOrder()[i] + ": " + turnTable[i][3]);
-            newCubeletOrder[turnTable[i][3]] = currCubelet;
+            newCubeletOrder[currTable[i][3]] = currCubelet;
             // System.out.println("NewCubeletOrder:" + Arrays.toString(newCubeletOrder));
         }
         cube.setCubeletOrder(newCubeletOrder);
@@ -144,7 +165,7 @@ public class CubeManipulator {
     /// This function takes the cube as a parameter and changes the cubeletOrder according to the 
     /// turnTable lookup table. 
     /// This function can be called in succession in order to perform the turn multiple times.
-    public void bTurn(Cube cube) {
+    public void bTurn(int[][] currTable, Cube cube) {
         char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
         char currCubelet;
         // B-Turn = column 4 of turnTable
@@ -153,7 +174,7 @@ public class CubeManipulator {
             // System.out.println("Cubelet in Position " + i + ": " + cube.getCubeletOrder()[i]);
             currCubelet = cube.getCubeletOrder()[i];
             // System.out.println("New position for " + cube.getCubeletOrder()[i] + ": " + turnTable[i][4]);
-            newCubeletOrder[turnTable[i][4]] = currCubelet;
+            newCubeletOrder[currTable[i][4]] = currCubelet;
             // System.out.println("NewCubeletOrder:" + Arrays.toString(newCubeletOrder));
         }
         cube.setCubeletOrder(newCubeletOrder);
@@ -164,7 +185,7 @@ public class CubeManipulator {
     /// This function takes the cube as a parameter and changes the cubeletOrder according to the 
     /// turnTable lookup table. 
     /// This function can be called in succession in order to perform the turn multiple times.
-    public void dTurn(Cube cube) {
+    public void dTurn(int[][] currTable, Cube cube) {
         char[] newCubeletOrder = {' ', ' ',' ',' ',' ',' ',' ',' '};
         char currCubelet;
         // D-Turn = column 5 of turnTable
@@ -173,14 +194,14 @@ public class CubeManipulator {
             // System.out.println("Cubelet in Position " + i + ": " + cube.getCubeletOrder()[i]);
             currCubelet = cube.getCubeletOrder()[i];
             // System.out.println("New position for " + cube.getCubeletOrder()[i] + ": " + turnTable[i][5]);
-            newCubeletOrder[turnTable[i][5]] = currCubelet;
+            newCubeletOrder[currTable[i][5]] = currCubelet;
             // System.out.println("NewCubeletOrder:" + Arrays.toString(newCubeletOrder));
         }
         cube.setCubeletOrder(newCubeletOrder);
     }
 
     ////// randomizeCube Function
-    /// Randomizes a given cube by turning it a random number of times. 
+    /// Randomizes a given cube performing a random set of moves. 
     public Cube randomizeCube(Cube cube) {
         Random rand = new Random();
         int numMoves = rand.nextInt(100);
@@ -188,17 +209,17 @@ public class CubeManipulator {
         for (int i=0; i < numMoves; i++) {
             move = rand.nextInt(6);
             if (move == 0) {
-                this.fTurn(cube);
+                this.fTurn(this.turnTable, cube);
             } else if (move == 1) {
-                this.lTurn(cube);
+                this.lTurn(this.turnTable, cube);
             } else if (move == 2) {
-                this.uTurn(cube);
+                this.uTurn(this.turnTable, cube);
             } else if (move == 3) {
-                this.rTurn(cube);
+                this.rTurn(this.turnTable, cube);
             } else if (move == 4) {
-                this.bTurn(cube);
+                this.bTurn(this.turnTable, cube);
             } else {
-                this.dTurn(cube);
+                this.dTurn(this.turnTable, cube);
             }
         }
         return cube;

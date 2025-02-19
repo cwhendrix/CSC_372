@@ -13,12 +13,12 @@ public class Main {
     /// Current Cubelet Order: 
     ///    a, b, c, d, e, f, g, h
     /// Next move:
-    /// 1. F-Turn
-    /// 2. L-Turn
-    /// 3. U-Turn
-    /// 4. R-Turn
-    /// 5. B-Turn
-    /// 6. D-Turn
+    /// 1. F-Turn (-1 for reverse)
+    /// 2. L-Turn (-2 for reverse)
+    /// 3. U-Turn (-3 for reverse)
+    /// 4. R-Turn (-4 for reverse)
+    /// 5. B-Turn (-5 for reverse)
+    /// 6. D-Turn (-6 for reverse)
     /// 7. Check if solved. 
     /// 8. Randomize cube.
     /// 9. Exit.
@@ -28,12 +28,12 @@ public class Main {
             System.out.println("Current Cubelet Order: ");
             System.out.println(Arrays.toString(cube.getCubeletOrder()));
             System.out.println("Next move:");
-            System.out.println("1. F-Turn\n" +
-                            "2. L-Turn\n" +
-                            "3. U-Turn\n" +
-                            "4. R-Turn\n" +
-                            "5. B-Turn\n" + 
-                            "6. D-Turn\n" + 
+            System.out.println("1. F-Turn (-1 for reverse).\n" +
+                            "2. L-Turn (-2 for reverse).\n" +
+                            "3. U-Turn (-3 for reverse).\n" +
+                            "4. R-Turn (-4 for reverse).\n" +
+                            "5. B-Turn (-5 for reverse).\n" + 
+                            "6. D-Turn (-6 for reverse)\n" + 
                             "7. Check if solved. \n" +
                             "8. Randomize cube.\n" + 
                             "9. Exit.\n");
@@ -46,28 +46,41 @@ public class Main {
     public static void main(String[] args) {
         CubeManipulator cubeManip = new CubeManipulator();
         Cube cube = new Cube();
-        int response = -1;
+        int response = 0;
 
         while (response != 9) {
             response = guiPrint(cube);
             if (response == 1) {
                 // System.out.println("F-Turn Chosen");
-                cubeManip.fTurn(cube);
+                cubeManip.fTurn(cubeManip.turnTable, cube);
+            } else if (response == -1) {
+                cubeManip.fTurn(cubeManip.reverseTable, cube);
             } else if (response == 2) {
                 // System.out.println("L-Turn Chosen");
-                cubeManip.lTurn(cube);
+                cubeManip.lTurn(cubeManip.turnTable, cube);
+            } else if (response == -2) {
+                cubeManip.lTurn(cubeManip.reverseTable, cube);
             } else if (response == 3) {
                 // System.out.println("U-Turn Chosen");
-                cubeManip.uTurn(cube);
+                cubeManip.uTurn(cubeManip.turnTable, cube);
+            } else if (response == -3) {
+                cubeManip.uTurn(cubeManip.reverseTable, cube);
             } else if (response == 4) {
                 // System.out.println("R-Turn Chosen");
-                cubeManip.rTurn(cube);
+                cubeManip.rTurn(cubeManip.turnTable, cube);
+            } else if (response == -4) {
+                cubeManip.rTurn(cubeManip.reverseTable, cube);
             } else if (response == 5) {
                 // System.out.println("B-Turn Chosen");
-                cubeManip.bTurn(cube);
+                cubeManip.bTurn(cubeManip.turnTable, cube);
+            } else if (response == -5) {
+                cubeManip.bTurn(cubeManip.reverseTable, cube);
             } else if (response == 6) {
                 // System.out.println("D-Turn Chosen");
-            } else if (response == 7) {
+                cubeManip.dTurn(cubeManip.turnTable, cube);
+            } else if (response == -6) {
+                cubeManip.dTurn(cubeManip.reverseTable, cube);
+            }else if (response == 7) {
                 // System.out.println("Check Chosen");
                 boolean solved = cube.isSolved();
                 if (solved) {
