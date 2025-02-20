@@ -33,7 +33,7 @@ public class Main {
                             "3. U-Turn (-3 for reverse).\n" +
                             "4. R-Turn (-4 for reverse).\n" +
                             "5. B-Turn (-5 for reverse).\n" + 
-                            "6. D-Turn (-6 for reverse)\n" + 
+                            "6. D-Turn (-6 for reverse).\n" + 
                             "7. Check if solved. \n" +
                             "8. Randomize cube.\n" + 
                             "9. Exit.\n");

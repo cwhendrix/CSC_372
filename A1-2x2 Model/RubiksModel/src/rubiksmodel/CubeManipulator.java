@@ -51,16 +51,6 @@ public class CubeManipulator {
                                    {5, 4, 6, 5, 2, 5},
                                    {7, 5, 1, 6, 6, 6},
                                    {0, 6, 7, 7, 7, 4}};
-    private char turnSymbol;     /// Used to hold whatever the current turn being performed is
-
-
-    public char getTurnSymbol() {
-        return turnSymbol;
-    }
-
-    public void setTurnSymbol(char turnSymbol) {
-        this.turnSymbol = turnSymbol;
-    }
 
     ////// CubeManipulator Constructor
     /// This is the constructor for this class.

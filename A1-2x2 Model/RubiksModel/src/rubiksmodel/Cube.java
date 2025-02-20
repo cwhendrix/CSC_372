@@ -86,10 +86,4 @@ public class Cube {
     public void setCubeletOrder(char[] cubeletOrder) {
         this.cubeletOrder = cubeletOrder;
     }
-
-    public void setNewCubeletPosition(int position, char cubelet) {
-        this.cubeletOrder[position] = cubelet;
-    }
-
-
 }
