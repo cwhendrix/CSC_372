@@ -1,7 +1,11 @@
 package rubikssolver;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Queue;
+import java.util.Stack;
+import java.util.PriorityQueue;
 
 public class Main {
     static Scanner scn = new Scanner(System.in);
@@ -42,60 +46,101 @@ public class Main {
             return response;    
             //TODO: Handle invalid input
         }
-    
+
+    public static void BFS(int depth, Cube cube, Queue<Node> queue, CubeManipulator cubeManip) {
+        int nodesExplored = 0;
+        boolean issolved = false;
+        Node curr; 
+        long startTime = System.currentTimeMillis();
+
+        // Enqueue first node to set
+            // Compute root's priority
+        Node root = new Node(cube, 1, null, ' ', 0);
+        queue.add(root);
+        while (issolved != true) {
+            // pop item from queue
+            curr = queue.remove();
+            nodesExplored++;
+
+            // check if solved
+            issolved = curr.state.isSolved();
+            if (issolved == true) {
+                long estimatedTime = (System.currentTimeMillis() - startTime)/60000;    // convert to minutes
+                System.out.println("===================================");
+                System.out.println("Breadth-First Search Finished.");
+                System.out.println("Depth: "+ depth);
+                System.out.println("Nodes Visited: " + nodesExplored);
+                System.out.println("Size of Queue: " + queue.size());
+                System.out.println("Wall Time: " + estimatedTime + " ms");
+                return;
+            }
+
+            // if we're here, not solved; enqueue children
+        }
+    }
+
+    public static int DFS(int maxDepth, Cube cube, Stack<Node> stack, CubeManipulator cubeManip) {
+        int nodesExplored = 0;
+        boolean issolved = false;
+        Node curr; 
+
+        // Enqueue first node to set
+            // Compute root's priority
+        Node root = new Node(cube, 1, null, ' ', 0);
+        stack.add(root);
+        while (issolved != true) {
+            // pop item from queue
+            curr = stack.pop();
+            nodesExplored++;
+
+            // check if solved
+            issolved = curr.state.isSolved();
+            if (issolved == true) {
+                return nodesExplored;
+            }
+
+            // if we're here, not solved; enqueue children
+            // enqueue if it's not past maxDepth
+            if (curr.pathCost + 1 <= maxDepth) {
+
+            }
+        }
+        return 0;
+    }
+
+    public static void IDS(int depth, Cube cube, Stack<Node> stack, CubeManipulator cubeManip) {
+        int nodesExplored = 0;
+        boolean issolved = false;
+        Node curr; 
+        long startTime = System.currentTimeMillis();
+        int i = 1;
+        int temp;
+        while (issolved != true) {
+            temp = DFS(i, cube, stack, cubeManip);
+            nodesExplored += temp;
+            if (issolved != true) {
+                stack.clear();
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
         CubeManipulator cubeManip = new CubeManipulator();
         Cube cube = new Cube();
-        int response = 0;
+        int depth = 1;
+        Queue<Node> BFSqueue = new LinkedList<>();
 
-        while (response != 9) {
-            response = guiPrint(cube);
-            if (response == 1) {
-                // System.out.println("F-Turn Chosen");
-                cubeManip.fTurn(cubeManip.turnTable, cube);
-            } else if (response == -1) {
-                cubeManip.fTurn(cubeManip.reverseTable, cube);
-            } else if (response == 2) {
-                // System.out.println("L-Turn Chosen");
-                cubeManip.lTurn(cubeManip.turnTable, cube);
-            } else if (response == -2) {
-                cubeManip.lTurn(cubeManip.reverseTable, cube);
-            } else if (response == 3) {
-                // System.out.println("U-Turn Chosen");
-                cubeManip.uTurn(cubeManip.turnTable, cube);
-            } else if (response == -3) {
-                cubeManip.uTurn(cubeManip.reverseTable, cube);
-            } else if (response == 4) {
-                // System.out.println("R-Turn Chosen");
-                cubeManip.rTurn(cubeManip.turnTable, cube);
-            } else if (response == -4) {
-                cubeManip.rTurn(cubeManip.reverseTable, cube);
-            } else if (response == 5) {
-                // System.out.println("B-Turn Chosen");
-                cubeManip.bTurn(cubeManip.turnTable, cube);
-            } else if (response == -5) {
-                cubeManip.bTurn(cubeManip.reverseTable, cube);
-            } else if (response == 6) {
-                // System.out.println("D-Turn Chosen");
-                cubeManip.dTurn(cubeManip.turnTable, cube);
-            } else if (response == -6) {
-                cubeManip.dTurn(cubeManip.reverseTable, cube);
-            }else if (response == 7) {
-                // System.out.println("Check Chosen");
-                boolean solved = cube.isSolved();
-                if (solved) {
-                    System.out.println("Cube is solved.");
-                } else {
-                    System.out.println("Cube is not solved.");
-                }
-            } else if (response == 8) {
-                // System.out.println("Randomize Chosen");
-                cubeManip.randomizeCube(cube);
-            } else if (response == 9) {
-                // System.out.println("Exit Chosen");
-            } else {
-                System.out.println("Invalid input detected. Please try again.");
-            }
-        }
+
+
+        Stack<Node> IDSstack = new Stack<>();
+
+
+
+
+        PriorityQueue<Node> IDAPQ = new PriorityQueue<>();
+        
+
+
     }
 }
