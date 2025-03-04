@@ -30,7 +30,7 @@ public class Cube {
     /// For the above example, the 'a' cubelet, because it is in the 0 orientation, has its position set to cubeletOrder[0].
     /// The full cubeletOrder for the above example cube would be:
     /// cubeletOrder = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
-    private char[] cubeletOrder = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+    private String[] cubeletOrder = {"a1", "d1", "c1", "b1", "e1", "f1", "g1", "h1"};
 
     ////// Cube Constructor 
     /// Generates a cube in a solved state.
@@ -40,7 +40,7 @@ public class Cube {
 
     ////// Alternate Cube Constructor
     /// Allows you to generate a cube with a given cubelet order.
-    public Cube(char[] cubeletOrder) {
+    public Cube(String[] cubeletOrder) {
         this.setCubeletOrder(cubeletOrder);
     }
 
@@ -49,21 +49,21 @@ public class Cube {
     /// Returns TRUE if the cube is in a solved state.
     /// Returns FALSE if the cube is not in a solved state.
     public boolean isSolved() {
-        if (cubeletOrder[0] != 'a') {
+        if (cubeletOrder[0] != "a1") {
             return false;
-        } else if (cubeletOrder[1] != 'b') {
+        } else if (cubeletOrder[1] != "d1") {
             return false;
-        } else if (cubeletOrder[2] != 'c') {
+        } else if (cubeletOrder[2] != "c1") {
             return false;
-        } else if (cubeletOrder[3] != 'd') {
+        } else if (cubeletOrder[3] != "b1") {
             return false;
-        } else if (cubeletOrder[4] != 'e') {
+        } else if (cubeletOrder[4] != "e1") {
             return false;
-        } else if (cubeletOrder[5] != 'f') {
+        } else if (cubeletOrder[5] != "f1") {
             return false;
-        } else if (cubeletOrder[6] != 'g') {
+        } else if (cubeletOrder[6] != "g1") {
             return false;
-        } else if (cubeletOrder[7] != 'h') {
+        } else if (cubeletOrder[7] != "h1") {
             return false;
         }
         return true;
@@ -78,12 +78,12 @@ public class Cube {
 
     ////// getCubeletOrder Function
     /// Returns the cubeletOrder attribute. 
-    public char[] getCubeletOrder() {
+    public String[] getCubeletOrder() {
         return cubeletOrder;
     }
     ////// setCubeletOrder Function
     /// Allows you to set the cubeletOrder attribute.
-    public void setCubeletOrder(char[] cubeletOrder) {
+    public void setCubeletOrder(String[] cubeletOrder) {
         this.cubeletOrder = cubeletOrder;
     }
 }

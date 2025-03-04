@@ -126,6 +126,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        
         CubeManipulator cubeManip = new CubeManipulator();
         Cube cube = new Cube();
         int depth = 1;
@@ -139,8 +140,11 @@ public class Main {
 
 
         PriorityQueue<Node> IDAPQ = new PriorityQueue<>();
-        
 
-
+        System.out.println("Current Cubelet Order: ");
+        System.out.println(Arrays.toString(cube.getCubeletOrder()));
+        cubeManip.fTurn(cube);
+        System.out.println("New Cubelet Order:");
+        System.out.println(Arrays.toString(cube.getCubeletOrder()));
     }
 }
