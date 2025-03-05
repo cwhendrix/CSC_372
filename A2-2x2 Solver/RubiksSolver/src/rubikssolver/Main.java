@@ -144,7 +144,13 @@ public class Main {
         System.out.println("Current Cubelet Order: ");
         System.out.println(Arrays.toString(cube.getCubeletOrder()));
         cubeManip.fTurn(cube);
-        System.out.println("New Cubelet Order:");
+        System.out.println("FTurn:");
+        System.out.println(Arrays.toString(cube.getCubeletOrder()));
+        cubeManip.negFTurn(cube);
+        System.out.println("Neg. FTurn:");
+        System.out.println(Arrays.toString(cube.getCubeletOrder()));
+        System.out.println("DTurn:");
+        cubeManip.dTurn(cube);
         System.out.println(Arrays.toString(cube.getCubeletOrder()));
     }
 }
