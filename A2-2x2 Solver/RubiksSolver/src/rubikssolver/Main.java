@@ -55,7 +55,7 @@ public class Main {
 
         // Enqueue first node to set
             // Compute root's priority
-        Node root = new Node(cube, 1, null, ' ', 0);
+        Node root = new Node(cube, 1, null, MOVES.None, 0);
         queue.add(root);
         while (issolved != true) {
             // pop item from queue
@@ -86,7 +86,7 @@ public class Main {
 
         // Enqueue first node to set
             // Compute root's priority
-        Node root = new Node(cube, 1, null, ' ', 0);
+        Node root = new Node(cube, 1, null, MOVES.None, 0);
         stack.add(root);
         while (issolved != true) {
             // pop item from queue
@@ -151,6 +151,18 @@ public class Main {
         System.out.println(Arrays.toString(cube.getCubeletOrder()));
         System.out.println("DTurn:");
         cubeManip.dTurn(cube);
+        System.out.println(Arrays.toString(cube.getCubeletOrder()));
+        System.out.println("Neg. DTurn:");
+        cubeManip.negDTurn(cube);
+        System.out.println(Arrays.toString(cube.getCubeletOrder()));
+        System.out.println("RTurn:");
+        cubeManip.rTurn(cube);
+        System.out.println(Arrays.toString(cube.getCubeletOrder()));
+        System.out.println("Neg. RTurn:");
+        cubeManip.negRTurn(cube);
+        System.out.println(Arrays.toString(cube.getCubeletOrder()));
+        cubeManip.randomizeCube(cube, 10);
+        System.out.println("Current Cubelet Order: ");
         System.out.println(Arrays.toString(cube.getCubeletOrder()));
     }
 }

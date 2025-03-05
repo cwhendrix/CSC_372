@@ -49,21 +49,21 @@ public class Cube {
     /// Returns TRUE if the cube is in a solved state.
     /// Returns FALSE if the cube is not in a solved state.
     public boolean isSolved() {
-        if (cubeletOrder[0] != "a1") {
+        if (!cubeletOrder[0].equals("a1")) {
             return false;
-        } else if (cubeletOrder[1] != "d1") {
+        } else if (!cubeletOrder[1].equals("d1")) {
             return false;
-        } else if (cubeletOrder[2] != "c1") {
+        } else if (!cubeletOrder[2].equals("c1")) {
             return false;
-        } else if (cubeletOrder[3] != "b1") {
+        } else if (!cubeletOrder[3].equals("b1")) {
             return false;
-        } else if (cubeletOrder[4] != "e1") {
+        } else if (!cubeletOrder[4].equals("e1")) {
             return false;
-        } else if (cubeletOrder[5] != "f1") {
+        } else if (!cubeletOrder[5].equals("f1")) {
             return false;
-        } else if (cubeletOrder[6] != "g1") {
+        } else if (!cubeletOrder[6].equals("g1")) {
             return false;
-        } else if (cubeletOrder[7] != "h1") {
+        } else if (!cubeletOrder[7].equals("h1")) {
             return false;
         }
         return true;

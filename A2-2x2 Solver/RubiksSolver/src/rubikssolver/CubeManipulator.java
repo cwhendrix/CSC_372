@@ -70,10 +70,6 @@ public class CubeManipulator {
 
     ////// F-Turn function
     /// The F-Turn function turns the cube about the green face. 
-    /// This function changes the cubeletOrder according to the lookup table. 
-    /// The currTable parameter is the lookup table to be used.
-    /// The cube parameter is whatever cube is currently being altered.
-    /// This function can be called in succession in order to perform the turn multiple times.
     public void fTurn(Cube cube) {
         String[] newCubeletOrder = {" ", " ", " ", " ", " ", " ", " ", " "};
         String[] currCubeletOrder = cube.getCubeletOrder();
@@ -250,9 +246,240 @@ public class CubeManipulator {
         }
         cube.setCubeletOrder(newCubeletOrder);
     }
+    public void negDTurn(Cube cube) {
+        String[] newCubeletOrder = {" ", " ", " ", " ", " ", " ", " ", " "};
+        String[] currCubeletOrder = cube.getCubeletOrder();
+
+        // Handle cubelet at position 0, goes to position 7
+        if (currCubeletOrder[0].charAt(1) == '1') {
+            // Orientation 1, goes to orientation 2
+            newCubeletOrder[7] = currCubeletOrder[0].charAt(0) + "2";
+        } else if (currCubeletOrder[0].charAt(1) == '2') {
+            // Orientation 2, goes to orientation 1
+            newCubeletOrder[7] = currCubeletOrder[0].charAt(0) + "1";
+        } else {
+            // Orientation 3, goes to orientation 3
+            newCubeletOrder[7] = currCubeletOrder[0].charAt(0) + "3";
+        }
+        // Handle cubelet at position 1, unchanged
+        newCubeletOrder[1] = currCubeletOrder[1];
+        // Handle cubelet at position 2, unchanged
+        newCubeletOrder[2] = currCubeletOrder[2];
+        // Handle cubelet at position 3, goes to position 0
+        if (currCubeletOrder[3].charAt(1) == '1') {
+            // Orientation 1, goes to orientation 2
+            newCubeletOrder[0] = currCubeletOrder[3].charAt(0) + "2";
+        } else if (currCubeletOrder[3].charAt(1) == '2') {
+            // Orientation 2, goes to orientation 1
+            newCubeletOrder[0] = currCubeletOrder[3].charAt(0) + "1";
+        } else {
+            // Orientation 3, goes to orientation 3
+            newCubeletOrder[0] = currCubeletOrder[3].charAt(0) + "3";
+        }
+        // Handle cubelet at position 4, goes to position 3
+        if (currCubeletOrder[4].charAt(1) == '1') {
+            // Orientation 1, goes to orientation 2
+            newCubeletOrder[3] = currCubeletOrder[4].charAt(0) + "2";
+        } else if (currCubeletOrder[4].charAt(1) == '2') {
+            // Orientation 2, goes to orientation 1
+            newCubeletOrder[3] = currCubeletOrder[4].charAt(0) + "1";
+        } else {
+            // Orientation 3, goes to orientation 3
+            newCubeletOrder[3] = currCubeletOrder[4].charAt(0) + "3";
+        }
+        // Handle cubelet at position 5, fixed cubelet
+        newCubeletOrder[5] = currCubeletOrder[5];
+        // Handle cubelet at position 6, unchanged
+        newCubeletOrder[6] = currCubeletOrder[6];
+        // Handle cubelet at position 7, to position 4
+        if (currCubeletOrder[7].charAt(1) == '1') {
+            // Orientation 1, goes to orientation 2
+            newCubeletOrder[4] = currCubeletOrder[7].charAt(0) + "2";
+        } else if (currCubeletOrder[7].charAt(1) == '2') {
+            // Orientation 2, goes to orientation 1
+            newCubeletOrder[4] = currCubeletOrder[7].charAt(0) + "1";
+        } else {
+            // Orientation 3, goes to orientation 3
+            newCubeletOrder[4] = currCubeletOrder[7].charAt(0) + "3";
+        }
+        cube.setCubeletOrder(newCubeletOrder);
+    }
+
+    public void rTurn(Cube cube) {
+        String[] newCubeletOrder = {" ", " ", " ", " ", " ", " ", " ", " "};
+        String[] currCubeletOrder = cube.getCubeletOrder();
+
+        // Handle cubelet at position 0, to position 1
+        if (currCubeletOrder[0].charAt(1) == '1') {
+            // Orientation 1, goes to orientation 1
+            newCubeletOrder[1] = currCubeletOrder[0].charAt(0) + "1";
+        } else if (currCubeletOrder[0].charAt(1) == '2') {
+            // Orientation 2, goes to orientation 3
+            newCubeletOrder[1] = currCubeletOrder[0].charAt(0) + "3";
+        } else {
+            // Orientation 3, goes to orientation 2
+            newCubeletOrder[1] = currCubeletOrder[0].charAt(0) + "2";
+        }
+        // Handle cubelet at position 1, to position 2
+        if (currCubeletOrder[1].charAt(1) == '1') {
+            // Orientation 1, goes to orientation 1
+            newCubeletOrder[2] = currCubeletOrder[1].charAt(0) + "1";
+        } else if (currCubeletOrder[1].charAt(1) == '2') {
+            // Orientation 2, goes to orientation 3
+            newCubeletOrder[2] = currCubeletOrder[1].charAt(0) + "3";
+        } else {
+            // Orientation 3, goes to orientation 2
+            newCubeletOrder[2] = currCubeletOrder[1].charAt(0) + "2";
+        }
+        // Handle cubelet at position 2, goes to position 3
+        if (currCubeletOrder[2].charAt(1) == '1') {
+            // Orientation 1, goes to orientation 1
+            newCubeletOrder[3] = currCubeletOrder[2].charAt(0) + "1";
+        } else if (currCubeletOrder[2].charAt(1) == '2') {
+            // Orientation 2, goes to orientation 3
+            newCubeletOrder[3] = currCubeletOrder[2].charAt(0) + "3";
+        } else {
+            // Orientation 3, goes to orientation 2
+            newCubeletOrder[3] = currCubeletOrder[2].charAt(0) + "2";
+        }
+        // Handle cubelet at position 3, goes to position 0
+        if (currCubeletOrder[3].charAt(1) == '1') {
+            // Orientation 1, goes to orientation 1
+            newCubeletOrder[0] = currCubeletOrder[3].charAt(0) + "1";
+        } else if (currCubeletOrder[3].charAt(1) == '2') {
+            // Orientation 2, goes to orientation 3
+            newCubeletOrder[0] = currCubeletOrder[3].charAt(0) + "3";
+        } else {
+            // Orientation 3, goes to orientation 2
+            newCubeletOrder[0] = currCubeletOrder[3].charAt(0) + "2";
+        }
+        // handle cubelet at position 4, unchanged
+        newCubeletOrder[4] = currCubeletOrder[4];
+        // handle cubelet at position 5, fixed cubelet
+        newCubeletOrder[5] = currCubeletOrder[5];
+        // handle cubelet at position 6, unchanged
+        newCubeletOrder[6] = currCubeletOrder[6];
+        // handle cubelet at position 7, unchanged 
+        newCubeletOrder[7] = currCubeletOrder[7];
+        cube.setCubeletOrder(newCubeletOrder);
+    }
+    public void negRTurn(Cube cube) {
+        String[] newCubeletOrder = {" ", " ", " ", " ", " ", " ", " ", " "};
+        String[] currCubeletOrder = cube.getCubeletOrder();
+
+        // Handle cubelet at position 0, to position 3
+        if (currCubeletOrder[0].charAt(1) == '1') {
+            // Orientation 1, goes to orientation 1
+            newCubeletOrder[3] = currCubeletOrder[0].charAt(0) + "1";
+        } else if (currCubeletOrder[0].charAt(1) == '2') {
+            // Orientation 2, goes to orientation 3
+            newCubeletOrder[3] = currCubeletOrder[0].charAt(0) + "3";
+        } else {
+            // Orientation 3, goes to orientation 2
+            newCubeletOrder[3] = currCubeletOrder[0].charAt(0) + "2";
+        }
+        // Handle cubelet at position 1, to position 0
+        if (currCubeletOrder[1].charAt(1) == '1') {
+            // Orientation 1, goes to orientation 1
+            newCubeletOrder[0] = currCubeletOrder[1].charAt(0) + "1";
+        } else if (currCubeletOrder[1].charAt(1) == '2') {
+            // Orientation 2, goes to orientation 3
+            newCubeletOrder[0] = currCubeletOrder[1].charAt(0) + "3";
+        } else {
+            // Orientation 3, goes to orientation 2
+            newCubeletOrder[0] = currCubeletOrder[1].charAt(0) + "2";
+        }
+        // Handle cubelet at position 2, goes to position 1
+        if (currCubeletOrder[2].charAt(1) == '1') {
+            // Orientation 1, goes to orientation 1
+            newCubeletOrder[1] = currCubeletOrder[2].charAt(0) + "1";
+        } else if (currCubeletOrder[2].charAt(1) == '2') {
+            // Orientation 2, goes to orientation 3
+            newCubeletOrder[1] = currCubeletOrder[2].charAt(0) + "3";
+        } else {
+            // Orientation 3, goes to orientation 2
+            newCubeletOrder[1] = currCubeletOrder[2].charAt(0) + "2";
+        }
+        // Handle cubelet at position 3, goes to position 2
+        if (currCubeletOrder[3].charAt(1) == '1') {
+            // Orientation 1, goes to orientation 1
+            newCubeletOrder[2] = currCubeletOrder[3].charAt(0) + "1";
+        } else if (currCubeletOrder[3].charAt(1) == '2') {
+            // Orientation 2, goes to orientation 3
+            newCubeletOrder[2] = currCubeletOrder[3].charAt(0) + "3";
+        } else {
+            // Orientation 3, goes to orientation 2
+            newCubeletOrder[2] = currCubeletOrder[3].charAt(0) + "2";
+        }
+        // handle cubelet at position 4, unchanged
+        newCubeletOrder[4] = currCubeletOrder[4];
+        // handle cubelet at position 5, fixed cubelet
+        newCubeletOrder[5] = currCubeletOrder[5];
+        // handle cubelet at position 6, unchanged
+        newCubeletOrder[6] = currCubeletOrder[6];
+        // handle cubelet at position 7, unchanged 
+        newCubeletOrder[7] = currCubeletOrder[7];
+        cube.setCubeletOrder(newCubeletOrder);
+    }
     ////// randomizeCube Function
     /// Randomizes a given cube performing a random set of moves. 
-    public Cube randomizeCube(Cube cube) {
+    public Cube randomizeCube(Cube cube, int depth) {
+        Random rand = new Random();
+        int randnum; 
+        int lastnum = -1;
+        
+        for (int i = 0; i <= depth; i++) {
+            randnum = rand.nextInt(6);
+            if (randnum == MOVES.FTurn.ordinal()) {
+                if (lastnum != MOVES.NegFTurn.ordinal()) {
+                    this.fTurn(cube);
+                    lastnum = 0;
+                } else {
+                    this.dTurn(cube);
+                    lastnum = 2;
+                }
+            } else if (randnum == MOVES.NegFTurn.ordinal()) {
+                if (lastnum != MOVES.FTurn.ordinal()) {
+                    this.negFTurn(cube);
+                    lastnum = 1;
+                } else {
+                    this.negDTurn(cube);
+                    lastnum = 3;
+                }
+            } else if (randnum == MOVES.DTurn.ordinal()) {
+                if (lastnum != MOVES.NegDTurn.ordinal()) {
+                    this.dTurn(cube);
+                    lastnum = 2;
+                } else {
+                    this.rTurn(cube);
+                    lastnum = 4;
+                }
+            } else if (randnum == MOVES.NegDTurn.ordinal()) {
+                if (lastnum != MOVES.DTurn.ordinal()) {
+                    this.negDTurn(cube);
+                    lastnum = 3;
+                } else {
+                    this.negRTurn(cube);
+                    lastnum = 5;
+                }
+            } else if (randnum == MOVES.RTurn.ordinal()) {
+                if (lastnum != MOVES.NegRTurn.ordinal()) {
+                    this.rTurn(cube);
+                    lastnum = 4;
+                } else {
+                    this.fTurn(cube);
+                    lastnum = 0;
+                }
+            } else if (randnum == MOVES.NegRTurn.ordinal()) {
+                if (lastnum != MOVES.RTurn.ordinal()) {
+                    this.negRTurn(cube);
+                    lastnum = 5;
+                } else {
+                    this.negFTurn(cube);
+                    lastnum = 1;
+                }
+            }
+        } 
         return cube;
     }
 }
