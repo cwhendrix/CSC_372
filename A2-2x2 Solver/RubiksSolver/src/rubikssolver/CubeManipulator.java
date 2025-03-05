@@ -5,53 +5,6 @@ import java.util.Random;
 
 public class CubeManipulator {
 
-    ////// The turnTable attribute
-    /// The turnTable attribute is a 2-D array of characters.
-    /// It is utilized to show, when a given move is performed,
-    /// where the cubelet in a given orientation will be. 
-    /// The table's values are as shown below:
-    ///     F L U R B D
-    /// 0 | 7 0 0 1 0 3
-    /// 1 | 0 1 6 2 1 1
-    /// 2 | 2 2 1 3 5 2
-    /// 3 | 3 3 3 0 2 4
-    /// 4 | 4 5 4 4 3 7
-    /// 5 | 5 6 2 5 4 5
-    /// 6 | 1 7 5 6 6 6
-    /// 7 | 6 4 7 7 7 0
-    /// For example, when the F move is performed, whatever cubelet which is in the 0 position
-    /// will be relocated to the 7 position. At the same time, the cubelet in the 1 position will be
-    /// relocated to the 0 position, and so on.
-    /// This table forms the basic functionality of the cube; that is, being able to turn. 
-    public int[][] turnTable = {{7, 0, 0, 1, 0, 3}, 
-                                {0, 1, 6, 2, 1, 1}, 
-                                {2, 2, 1, 3, 5, 2},
-                                {3, 3, 3, 0, 2, 4},
-                                {4, 5, 4, 4, 3, 7},
-                                {5, 6, 2, 5, 4, 5},
-                                {1, 7, 5, 6, 6, 6},
-                                {6, 4, 7, 7, 7, 0}};
-    ////// ReverseTable Attribute
-    /// This performs the same function for the turnTable attribute; however,
-    /// It tracks what position a cubelet will move to when the reverse operation is performed.
-    ///     F' L' U' R' B' D'
-    /// 0 | 1  0  0  3  0  7
-    /// 1 | 6  1  2  0  1  1
-    /// 2 | 2  2  5  1  3  2
-    /// 3 | 3  3  3  2  4  0
-    /// 4 | 4  7  4  4  5  3
-    /// 5 | 5  4  6  5  2  5
-    /// 6 | 7  5  1  6  6  6
-    /// 7 | 0  6  7  7  7  4
-    public int[][] reverseTable = {{1, 0, 0, 3, 0, 7},
-                                   {6, 1, 2, 0, 1, 1},
-                                   {2, 2, 5, 1, 3, 2},
-                                   {3, 3, 3, 2, 4, 0},
-                                   {4, 7, 4, 4, 5, 3},
-                                   {5, 4, 6, 5, 2, 5},
-                                   {7, 5, 1, 6, 6, 6},
-                                   {0, 6, 7, 7, 7, 4}};
-
     ////// CubeManipulator Constructor
     /// This is the constructor for this class.
     /// This class handles the alterations of the Cube for the purpose of solving it.
@@ -428,53 +381,65 @@ public class CubeManipulator {
         int randnum; 
         int lastnum = -1;
         
-        for (int i = 0; i <= depth; i++) {
+        for (int i = 0; i < depth; i++) {
             randnum = rand.nextInt(6);
             if (randnum == MOVES.FTurn.ordinal()) {
                 if (lastnum != MOVES.NegFTurn.ordinal()) {
+                    System.out.println("Fturn Performed");
                     this.fTurn(cube);
                     lastnum = 0;
                 } else {
+                    System.out.println("Dturn Performed");
                     this.dTurn(cube);
                     lastnum = 2;
                 }
             } else if (randnum == MOVES.NegFTurn.ordinal()) {
                 if (lastnum != MOVES.FTurn.ordinal()) {
+                    System.out.println("Neg. Fturn Performed");
                     this.negFTurn(cube);
                     lastnum = 1;
                 } else {
+                    System.out.println("Neg. Dturn Performed");
                     this.negDTurn(cube);
                     lastnum = 3;
                 }
             } else if (randnum == MOVES.DTurn.ordinal()) {
                 if (lastnum != MOVES.NegDTurn.ordinal()) {
+                    System.out.println("Dturn Performed");
                     this.dTurn(cube);
                     lastnum = 2;
                 } else {
+                    System.out.println("Rturn Performed");
                     this.rTurn(cube);
                     lastnum = 4;
                 }
             } else if (randnum == MOVES.NegDTurn.ordinal()) {
                 if (lastnum != MOVES.DTurn.ordinal()) {
+                    System.out.println("Neg. Dturn Performed");
                     this.negDTurn(cube);
                     lastnum = 3;
                 } else {
+                    System.out.println("Neg. Rturn Performed");
                     this.negRTurn(cube);
                     lastnum = 5;
                 }
             } else if (randnum == MOVES.RTurn.ordinal()) {
                 if (lastnum != MOVES.NegRTurn.ordinal()) {
+                    System.out.println("Rturn Performed");
                     this.rTurn(cube);
                     lastnum = 4;
                 } else {
+                    System.out.println("Fturn Performed");
                     this.fTurn(cube);
                     lastnum = 0;
                 }
             } else if (randnum == MOVES.NegRTurn.ordinal()) {
                 if (lastnum != MOVES.RTurn.ordinal()) {
+                    System.out.println("Neg. Rturn Performed");
                     this.negRTurn(cube);
                     lastnum = 5;
                 } else {
+                    System.out.println("Neg. Fturn Performed");
                     this.negFTurn(cube);
                     lastnum = 1;
                 }
