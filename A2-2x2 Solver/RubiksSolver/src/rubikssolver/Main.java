@@ -69,6 +69,7 @@ public class Main {
             // check if solved
             issolved = curr.state.isSolved();
             if (issolved == true) {
+                Node trans = curr;
                 long estimatedTime = (System.currentTimeMillis() - startTime);    // convert to minutes by /60000
                 System.out.println("===================================");
                 System.out.println("Breadth-First Search Finished.");
@@ -76,6 +77,10 @@ public class Main {
                 System.out.println("Nodes Visited: " + nodesExplored);
                 System.out.println("Size of Queue: " + queue.size());
                 System.out.println("Wall Time: " + estimatedTime + " ms");
+                // while (trans != null) {
+                //    System.out.println(trans.lastMove);
+                //    trans = trans.parent;
+                //}
                 return;
             }
             nodesExplored+=1;
@@ -83,27 +88,27 @@ public class Main {
             // if we're here, not solved; enqueue children
             for (MOVES move : MOVES.values()) {
                 Cube newCube = new Cube(curr.state.getCubeletOrder());
-                if (move == MOVES.FTurn && curr.lastMove != MOVES.FTurn) {
+                if (move == MOVES.FTurn && curr.lastMove != MOVES.NegFTurn) {
                     cubeManip.fTurn(newCube);
                     Node newNode = new Node(newCube, 1, curr, move, curr.pathCost+1);
                     queue.add(newNode);
-                } else if (move == MOVES.NegFTurn && curr.lastMove != MOVES.NegFTurn) {
+                } else if (move == MOVES.NegFTurn && curr.lastMove != MOVES.FTurn) {
                     cubeManip.negFTurn(newCube);
                     Node newNode = new Node(newCube, 1, curr, move, curr.pathCost+1);
                     queue.add(newNode);
-                } else if (move == MOVES.DTurn && curr.lastMove != MOVES.DTurn) {
+                } else if (move == MOVES.DTurn && curr.lastMove != MOVES.NegDTurn) {
                     cubeManip.dTurn(newCube);
                     Node newNode = new Node(newCube, 1, curr, move, curr.pathCost+1);
                     queue.add(newNode);
-                } else if (move == MOVES.NegDTurn && curr.lastMove != MOVES.NegDTurn) {
+                } else if (move == MOVES.NegDTurn && curr.lastMove != MOVES.DTurn) {
                     cubeManip.negDTurn(newCube);
                     Node newNode = new Node(newCube, 1, curr, move, curr.pathCost+1);
                     queue.add(newNode);
-                } else if (move == MOVES.RTurn && curr.lastMove != MOVES.RTurn) {
+                } else if (move == MOVES.RTurn && curr.lastMove != MOVES.NegRTurn) {
                     cubeManip.rTurn(newCube);
                     Node newNode = new Node(newCube, 1, curr, move, curr.pathCost+1);
                     queue.add(newNode);
-                } else if (move == MOVES.NegRTurn && curr.lastMove != MOVES.NegRTurn) {
+                } else if (move == MOVES.NegRTurn && curr.lastMove != MOVES.RTurn) {
                     cubeManip.negRTurn(newCube);
                     Node newNode = new Node(newCube, 1, curr, move, curr.pathCost+1);
                     queue.add(newNode);
@@ -118,24 +123,59 @@ public class Main {
         Node curr; 
 
         // Enqueue first node to set
-            // Compute root's priority
+        // Priority is irrelevant since it isn't a factor in BFS
         Node root = new Node(cube, 1, null, MOVES.None, 0);
-        stack.add(root);
+        stack.push(root);
         while (issolved != true) {
             // pop item from queue
+            if (stack.empty()) {
+                return nodesExplored;
+            }
             curr = stack.pop();
             nodesExplored++;
 
             // check if solved
             issolved = curr.state.isSolved();
             if (issolved == true) {
-                return nodesExplored;
+                Node trans = curr;
+                while (trans != null) {
+                    System.out.println(trans.lastMove);
+                    trans = trans.parent;
+                }
+                return -(nodesExplored); // negative value indicates that it is solved
             }
 
             // if we're here, not solved; enqueue children
             // enqueue if it's not past maxDepth
             if (curr.pathCost + 1 <= maxDepth) {
-
+                for (MOVES move : MOVES.values()) {
+                    Cube newCube = new Cube(curr.state.getCubeletOrder());
+                    if (move == MOVES.FTurn && curr.lastMove != MOVES.NegFTurn) {
+                        cubeManip.fTurn(newCube);
+                        Node newNode = new Node(newCube, 1, curr, move, curr.pathCost+1);
+                        stack.push(newNode);
+                    } else if (move == MOVES.NegFTurn && curr.lastMove != MOVES.FTurn) {
+                        cubeManip.negFTurn(newCube);
+                        Node newNode = new Node(newCube, 1, curr, move, curr.pathCost+1);
+                        stack.push(newNode);
+                    } else if (move == MOVES.DTurn && curr.lastMove != MOVES.NegDTurn) {
+                        cubeManip.dTurn(newCube);
+                        Node newNode = new Node(newCube, 1, curr, move, curr.pathCost+1);
+                        stack.push(newNode);
+                    } else if (move == MOVES.NegDTurn && curr.lastMove != MOVES.DTurn) {
+                        cubeManip.negDTurn(newCube);
+                        Node newNode = new Node(newCube, 1, curr, move, curr.pathCost+1);
+                        stack.push(newNode);
+                    } else if (move == MOVES.RTurn && curr.lastMove != MOVES.NegRTurn) {
+                        cubeManip.rTurn(newCube);
+                        Node newNode = new Node(newCube, 1, curr, move, curr.pathCost+1);
+                        stack.push(newNode);
+                    } else if (move == MOVES.NegRTurn && curr.lastMove != MOVES.RTurn) {
+                        cubeManip.negRTurn(newCube);
+                        Node newNode = new Node(newCube, 1, curr, move, curr.pathCost+1);
+                        stack.push(newNode);
+                    }
+                }
             }
         }
         return 0;
@@ -144,18 +184,28 @@ public class Main {
     public static void IDS(int depth, Cube cube, Stack<Node> stack, CubeManipulator cubeManip) {
         int nodesExplored = 0;
         boolean issolved = false;
-        Node curr; 
         long startTime = System.currentTimeMillis();
         int i = 1;
         int temp;
         while (issolved != true) {
-            temp = DFS(i, cube, stack, cubeManip);
-            nodesExplored += temp;
-            if (issolved != true) {
+            if (!stack.isEmpty()) {
                 stack.clear();
             }
+            temp = DFS(i, cube, stack, cubeManip);
+            if (temp < 0) {
+                issolved = true;
+                temp = temp * -1;
+            }
+            nodesExplored += temp;
+            i += 1;
         }
-
+        long estimatedTime = (System.currentTimeMillis() - startTime);
+        System.out.println("===================================");
+        System.out.println("Iterative Deepening Search Finished.");
+        System.out.println("Depth: "+ depth);
+        System.out.println("Nodes Visited: " + nodesExplored);
+        System.out.println("Size of Stack: " + stack.size());
+        System.out.println("Wall Time: " + estimatedTime + " ms");
     }
 
     public static void main(String[] args) {
@@ -166,13 +216,16 @@ public class Main {
         Queue<Node> BFSqueue = new LinkedList<>();
         Stack<Node> IDSstack = new Stack<>();
         PriorityQueue<Node> IDAPQ = new PriorityQueue<>();
+        //Cube testcube = new Cube();
+        //cubeManip.negFTurn(testcube);
 
         System.out.println("Current Cubelet Order: ");
         System.out.println(Arrays.toString(cube.getCubeletOrder()));
-        cubeManip.randomizeCube(cube, 6);
+        cubeManip.randomizeCube(cube, 3);
         System.out.println("Randomized Cubelet Order: ");
         System.out.println(Arrays.toString(cube.getCubeletOrder()));
-        System.out.println("Breadth-First Search, depth 6.");
-        BFS(6, cube, BFSqueue, cubeManip);
+        System.out.println("Iterative Deepening Search, depth 3.");
+        //BFS(3, cube, BFSqueue, cubeManip);
+        IDS(3, cube, IDSstack, cubeManip);
     }
 }
