@@ -162,7 +162,7 @@ public class Main {
         }
         long estimatedTime = (System.currentTimeMillis() - startTime);
         writer.println("===================================");
-        writer.println("Breadth-First Search Finished.");
+        writer.println("Iterative Deepening Search Finished.");
         writer.println("Depth: "+ depth);
         writer.println(nodesExplored + " visited, " + stack.size() + " nodes long, " + estimatedTime + " ms.");
     }
@@ -229,7 +229,7 @@ public class Main {
                     // Node trans = curr;
                     long estimatedTime = (System.currentTimeMillis() - startTime);    // convert to minutes by /60000
                     writer.println("===================================");
-                    writer.println("Breadth-First Search Finished.");
+                    writer.println("Best-First Search Finished.");
                     writer.println("Depth: "+ depth);
                     writer.println(nodesExplored + " visited, " + pq.size() + " nodes long, " + estimatedTime + " ms.");
                     // while (trans != null) {
