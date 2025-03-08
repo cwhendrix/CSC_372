@@ -1,55 +1,20 @@
 package rubikssolver;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Scanner;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.PriorityQueue;
 
 public class Main {
-    static Scanner scn = new Scanner(System.in);
-    ////// guiPrint Function   
-    /// This function is used to print out the GUI of the model. 
-    /// An example of the gui is as follows: 
-    /// 
-    /// ============================
-    /// Current Cubelet Order: 
-    ///    a, b, c, d, e, f, g, h
-    /// Next move:
-    /// 1. F-Turn (-1 for reverse)
-    /// 2. L-Turn (-2 for reverse)
-    /// 3. U-Turn (-3 for reverse)
-    /// 4. R-Turn (-4 for reverse)
-    /// 5. B-Turn (-5 for reverse)
-    /// 6. D-Turn (-6 for reverse)
-    /// 7. Check if solved. 
-    /// 8. Randomize cube.
-    /// 9. Exit.
-    public static int guiPrint(Cube cube) {
-            int response = -1; 
-            System.out.println("============================");
-            System.out.println("Current Cubelet Order: ");
-            System.out.println(Arrays.toString(cube.getCubeletOrder()));
-            System.out.println("Next move:");
-            System.out.println("1. F-Turn (-1 for reverse).\n" +
-                            "2. L-Turn (-2 for reverse).\n" +
-                            "3. U-Turn (-3 for reverse).\n" +
-                            "4. R-Turn (-4 for reverse).\n" +
-                            "5. B-Turn (-5 for reverse).\n" + 
-                            "6. D-Turn (-6 for reverse).\n" + 
-                            "7. Check if solved. \n" +
-                            "8. Randomize cube.\n" + 
-                            "9. Exit.\n");
-            System.out.println("Input:");
-            response = Integer.valueOf(scn.nextLine());        
-            return response;    
-            //TODO: Handle invalid input
-    }
-
     ////// BREADTH-FIRST SEARCH
-    public static void BFS(int depth, Cube cube, Queue<Node> queue, CubeManipulator cubeManip) {
+    public static void BFS(int depth, Cube cube, Queue<Node> queue, CubeManipulator cubeManip, PrintWriter writer) {
         int nodesExplored = 0;
         boolean issolved = false;
         Node curr; 
@@ -72,12 +37,10 @@ public class Main {
             if (issolved == true) {
                 Node trans = curr;
                 long estimatedTime = (System.currentTimeMillis() - startTime);    // convert to minutes by /60000
-                System.out.println("===================================");
-                System.out.println("Breadth-First Search Finished.");
-                System.out.println("Depth: "+ depth);
-                System.out.println("Nodes Visited: " + nodesExplored);
-                System.out.println("Size of Queue: " + queue.size());
-                System.out.println("Wall Time: " + estimatedTime + " ms");
+                writer.println("===================================");
+                writer.println("Breadth-First Search Finished.");
+                writer.println("Depth: "+ depth);
+                writer.println(nodesExplored + " visited, " + queue.size() + " nodes long, " + estimatedTime + " ms.");
                 // while (trans != null) {
                 //    System.out.println(trans.lastMove);
                 //    trans = trans.parent;
@@ -119,7 +82,7 @@ public class Main {
     }
 
     ////// DEPTH-FIRST SEARCH
-    public static int DFS(int maxDepth, Cube cube, Stack<Node> stack, CubeManipulator cubeManip) {
+    public static int DFS(int maxDepth, Cube cube, Stack<Node> stack, CubeManipulator cubeManip, PrintWriter writer) {
         int nodesExplored = 0;
         boolean issolved = false;
         Node curr; 
@@ -139,11 +102,6 @@ public class Main {
             // check if solved
             issolved = curr.state.isSolved();
             if (issolved == true) {
-                Node trans = curr;
-                while (trans != null) {
-                    System.out.println(trans.lastMove);
-                    trans = trans.parent;
-                }
                 return -(nodesExplored); // negative value indicates that it is solved
             }
 
@@ -184,7 +142,7 @@ public class Main {
     }
 
     ////// ITERATIVE DEEPENING SEARCH
-    public static void IDS(int depth, Cube cube, Stack<Node> stack, CubeManipulator cubeManip) {
+    public static void IDS(int depth, Cube cube, Stack<Node> stack, CubeManipulator cubeManip, PrintWriter writer) {
         int nodesExplored = 0;
         boolean issolved = false;
         long startTime = System.currentTimeMillis();
@@ -194,7 +152,7 @@ public class Main {
             if (!stack.isEmpty()) {
                 stack.clear();
             }
-            temp = DFS(i, cube, stack, cubeManip);
+            temp = DFS(i, cube, stack, cubeManip, writer);
             if (temp < 0) {
                 issolved = true;
                 temp = temp * -1;
@@ -203,12 +161,10 @@ public class Main {
             i += 1;
         }
         long estimatedTime = (System.currentTimeMillis() - startTime);
-        System.out.println("===================================");
-        System.out.println("Iterative Deepening Search Finished.");
-        System.out.println("Depth: "+ depth);
-        System.out.println("Nodes Visited: " + nodesExplored);
-        System.out.println("Size of Stack: " + stack.size());
-        System.out.println("Wall Time: " + estimatedTime + " ms");
+        writer.println("===================================");
+        writer.println("Breadth-First Search Finished.");
+        writer.println("Depth: "+ depth);
+        writer.println(nodesExplored + " visited, " + stack.size() + " nodes long, " + estimatedTime + " ms.");
     }
 
     ////// Heuristic Function
@@ -247,7 +203,7 @@ public class Main {
     }
     
         ////// BEST-FIRST SEARCH WITH A*
-        public static void BFSA(int depth, Cube cube, PriorityQueue<Node> pq, CubeManipulator cubeManip) {
+        public static void BFSA(int depth, Cube cube, PriorityQueue<Node> pq, CubeManipulator cubeManip, PrintWriter writer) {
             int nodesExplored = 0;
             boolean issolved = false;
             long startTime = System.currentTimeMillis();
@@ -263,21 +219,19 @@ public class Main {
                 curr = pq.remove();
                 explored.add(curr.state);
 
-                System.out.println("Current Node State: ");
-                System.out.println(Arrays.toString(curr.state.getCubeletOrder()));
-                System.out.println("Current Queue Size: ");
-                System.out.println(pq.size());
+                // System.out.println("Current Node State: ");
+                // System.out.println(Arrays.toString(curr.state.getCubeletOrder()));
+                // System.out.println("Current Queue Size: ");
+                // System.out.println(pq.size());
     
                 issolved = curr.state.isSolved();
                 if (issolved == true) {
                     // Node trans = curr;
                     long estimatedTime = (System.currentTimeMillis() - startTime);    // convert to minutes by /60000
-                    System.out.println("===================================");
-                    System.out.println("Best-First Search with A* Finished.");
-                    System.out.println("Depth: "+ depth);
-                    System.out.println("Nodes Visited: " + nodesExplored);
-                    System.out.println("Size of Priority Queue: " + pq.size());
-                    System.out.println("Wall Time: " + estimatedTime + " ms");
+                    writer.println("===================================");
+                    writer.println("Breadth-First Search Finished.");
+                    writer.println("Depth: "+ depth);
+                    writer.println(nodesExplored + " visited, " + pq.size() + " nodes long, " + estimatedTime + " ms.");
                     // while (trans != null) {
                     //    System.out.println(trans.lastMove);
                     //    trans = trans.parent;
@@ -337,25 +291,65 @@ public class Main {
         }  
     }
 
-    public static void main(String[] args) {
-        
+    public static Cube[] setup(int depth, CubeManipulator cubeManip) {
+        Cube[] cubeSet = new Cube[20];
+        Cube temp;
+        for (int i = 0; i < 20; i++) {
+            temp = new Cube();
+            cubeManip.randomizeCube(temp, depth);
+            cubeSet[i] = temp;
+        }
+        return cubeSet;
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        FileOutputStream file = new FileOutputStream("output.txt");
+        PrintWriter writer = new PrintWriter(file, true);
         CubeManipulator cubeManip = new CubeManipulator();
-        Cube cube = new Cube();
-        int depth = 1;
+        Cube[] experimentSet;
         Queue<Node> BFSqueue = new LinkedList<>();
         Stack<Node> IDSstack = new Stack<>();
         PriorityQueue<Node> IDAPQ = new PriorityQueue<>(new NodeComparator());
-        //Cube testcube = new Cube();
-        //cubeManip.negFTurn(testcube);
 
-        System.out.println("Current Cubelet Order: ");
-        System.out.println(Arrays.toString(cube.getCubeletOrder()));
-        cubeManip.randomizeCube(cube, 5);
-        System.out.println("Randomized Cubelet Order: ");
-        System.out.println(Arrays.toString(cube.getCubeletOrder()));
-        System.out.println("BFSA* Search, depth 5.");
+        for (int i=1; i <= 10; i++){
+            writer.println("============== BEST FIRST SEARCH  W. A* - DEPTH " + i + " ==============");
+            experimentSet = setup(i, cubeManip);
+            for (int j=0; j < 20; j++) {
+                BFSA(i, experimentSet[j], IDAPQ, cubeManip, writer);
+            }
+            if (!IDAPQ.isEmpty()) {
+                IDAPQ.clear();
+            }
+            System.gc();
+        }
+
+        for (int i=1; i <= 10; i++){
+            writer.println("============== ITERATIVE DEEPENING SEARCH - DEPTH " + i + " ==============");
+            experimentSet = setup(i, cubeManip);
+            for (int j=0; j < 20; j++) {
+                IDS(i, experimentSet[j], IDSstack, cubeManip, writer);
+            }
+            if (!IDSstack.isEmpty()) {
+                IDSstack.clear();
+            }
+            System.gc();
+        }
+        
+        for (int i=1; i <= 10; i++){
+            writer.println("============== BREADTH-FIRST SEARCH - DEPTH " + i + " ==============");
+            experimentSet = setup(i, cubeManip);
+            for (int j=0; j < 20; j++) {
+                BFS(i, experimentSet[j], BFSqueue, cubeManip, writer);
+            }
+            if (!BFSqueue.isEmpty()) {
+                BFSqueue.clear();
+            }
+            System.gc();
+        }
+            
+        writer.println("Test");
+        writer.close();
         //BFS(3, cube, BFSqueue, cubeManip);
         //IDS(3, cube, IDSstack, cubeManip);
-        BFSA(5, cube, IDAPQ, cubeManip);
     }
 }

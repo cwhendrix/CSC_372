@@ -385,61 +385,61 @@ public class CubeManipulator {
             randnum = rand.nextInt(6);
             if (randnum == MOVES.FTurn.ordinal()) {
                 if (lastnum != MOVES.NegFTurn.ordinal()) {
-                    System.out.println("Fturn Performed");
+                    // System.out.println("Fturn Performed");
                     this.fTurn(cube);
                     lastnum = 0;
                 } else {
-                    System.out.println("Dturn Performed");
+                    // System.out.println("Dturn Performed");
                     this.dTurn(cube);
                     lastnum = 2;
                 }
             } else if (randnum == MOVES.NegFTurn.ordinal()) {
                 if (lastnum != MOVES.FTurn.ordinal()) {
-                    System.out.println("Neg. Fturn Performed");
+                    // System.out.println("Neg. Fturn Performed");
                     this.negFTurn(cube);
                     lastnum = 1;
                 } else {
-                    System.out.println("Neg. Dturn Performed");
+                    // System.out.println("Neg. Dturn Performed");
                     this.negDTurn(cube);
                     lastnum = 3;
                 }
             } else if (randnum == MOVES.DTurn.ordinal()) {
                 if (lastnum != MOVES.NegDTurn.ordinal()) {
-                    System.out.println("Dturn Performed");
+                    // System.out.println("Dturn Performed");
                     this.dTurn(cube);
                     lastnum = 2;
                 } else {
-                    System.out.println("Rturn Performed");
+                    // System.out.println("Rturn Performed");
                     this.rTurn(cube);
                     lastnum = 4;
                 }
             } else if (randnum == MOVES.NegDTurn.ordinal()) {
                 if (lastnum != MOVES.DTurn.ordinal()) {
-                    System.out.println("Neg. Dturn Performed");
+                    // System.out.println("Neg. Dturn Performed");
                     this.negDTurn(cube);
                     lastnum = 3;
                 } else {
-                    System.out.println("Neg. Rturn Performed");
+                    // System.out.println("Neg. Rturn Performed");
                     this.negRTurn(cube);
                     lastnum = 5;
                 }
             } else if (randnum == MOVES.RTurn.ordinal()) {
                 if (lastnum != MOVES.NegRTurn.ordinal()) {
-                    System.out.println("Rturn Performed");
+                    // System.out.println("Rturn Performed");
                     this.rTurn(cube);
                     lastnum = 4;
                 } else {
-                    System.out.println("Fturn Performed");
+                    // System.out.println("Fturn Performed");
                     this.fTurn(cube);
                     lastnum = 0;
                 }
             } else if (randnum == MOVES.NegRTurn.ordinal()) {
                 if (lastnum != MOVES.RTurn.ordinal()) {
-                    System.out.println("Neg. Rturn Performed");
+                    // System.out.println("Neg. Rturn Performed");
                     this.negRTurn(cube);
                     lastnum = 5;
                 } else {
-                    System.out.println("Neg. Fturn Performed");
+                    // System.out.println("Neg. Fturn Performed");
                     this.negFTurn(cube);
                     lastnum = 1;
                 }
