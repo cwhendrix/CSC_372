@@ -1,6 +1,7 @@
 package rubikssolver;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Queue;
@@ -117,6 +118,7 @@ public class Main {
         }
     }
 
+    ////// DEPTH-FIRST SEARCH
     public static int DFS(int maxDepth, Cube cube, Stack<Node> stack, CubeManipulator cubeManip) {
         int nodesExplored = 0;
         boolean issolved = false;
@@ -128,7 +130,7 @@ public class Main {
         stack.push(root);
         while (issolved != true) {
             // pop item from queue
-            if (stack.empty()) {
+            if (stack.empty()) {    // If stack is empty, we've exhausted our searchable space
                 return nodesExplored;
             }
             curr = stack.pop();
@@ -178,9 +180,10 @@ public class Main {
                 }
             }
         }
-        return 0;
+        return nodesExplored;
     }
 
+    ////// ITERATIVE DEEPENING SEARCH
     public static void IDS(int depth, Cube cube, Stack<Node> stack, CubeManipulator cubeManip) {
         int nodesExplored = 0;
         boolean issolved = false;
@@ -208,6 +211,132 @@ public class Main {
         System.out.println("Wall Time: " + estimatedTime + " ms");
     }
 
+    ////// Heuristic Function
+    public static double heuristic(Cube cube) {
+        double priority = 0;
+        String[] cubeletOrder = cube.getCubeletOrder();
+        int[][] moves = {{0,1,2,1,2,0,2,1},
+                         {1,2,1,0,1,0,1,2},
+                         {2,1,0,1,2,0,2,2},
+                         {1,0,1,2,3,0,1,2},
+                         {2,3,2,1,0,0,2,1},
+                         {0,0,0,0,0,0,0,0},
+                         {2,1,2,1,2,0,0,1},
+                         {1,2,2,2,1,0,1,0}};
+        for (int i=0; i<=7; i++) {
+            if (cubeletOrder[i].charAt(0) =='a') {
+                priority += moves[0][i];
+            } else if (cubeletOrder[i].charAt(0) =='d') {
+                priority += moves[1][i];
+            } else if (cubeletOrder[i].charAt(0) =='c') {
+                priority += moves[2][i];
+            } else if (cubeletOrder[i].charAt(0) =='b') {
+                priority += moves[3][i];
+            } else if (cubeletOrder[i].charAt(0) =='e') {
+                priority += moves[4][i];
+            } else if (cubeletOrder[i].charAt(0) =='f') {
+                priority += 0;
+            } else if (cubeletOrder[i].charAt(0) =='g') {
+                priority += moves[6][i];
+            } else if (cubeletOrder[i].charAt(0) =='f') {
+                priority += moves[7][i];
+            }
+        }
+        priority = (priority / 4);
+        return priority;
+    }
+    
+        ////// BEST-FIRST SEARCH WITH A*
+        public static void BFSA(int depth, Cube cube, PriorityQueue<Node> pq, CubeManipulator cubeManip) {
+            int nodesExplored = 0;
+            boolean issolved = false;
+            long startTime = System.currentTimeMillis();
+            Node curr;
+            HashSet<Cube> explored = new HashSet<Cube>();
+    
+            // Enqueue first node to set
+            // Priority is irrelevant on the root node
+            Node root = new Node(cube, 0, null, MOVES.None, 0);
+            pq.add(root);
+            while (issolved != true) {
+                // remove first node from pq
+                curr = pq.remove();
+                explored.add(curr.state);
+
+                System.out.println("Current Node State: ");
+                System.out.println(Arrays.toString(curr.state.getCubeletOrder()));
+                System.out.println("Current Queue Size: ");
+                System.out.println(pq.size());
+    
+                issolved = curr.state.isSolved();
+                if (issolved == true) {
+                    // Node trans = curr;
+                    long estimatedTime = (System.currentTimeMillis() - startTime);    // convert to minutes by /60000
+                    System.out.println("===================================");
+                    System.out.println("Best-First Search with A* Finished.");
+                    System.out.println("Depth: "+ depth);
+                    System.out.println("Nodes Visited: " + nodesExplored);
+                    System.out.println("Size of Priority Queue: " + pq.size());
+                    System.out.println("Wall Time: " + estimatedTime + " ms");
+                    // while (trans != null) {
+                    //    System.out.println(trans.lastMove);
+                    //    trans = trans.parent;
+                    //}
+                    return;
+                }
+                nodesExplored++;
+    
+                // if we're here, not solved; enqueue children
+                for (MOVES move : MOVES.values()) {
+                    Cube newCube = new Cube(curr.state.getCubeletOrder());
+                    double priority;
+                    if (move == MOVES.FTurn && curr.lastMove != MOVES.NegFTurn) {
+                        cubeManip.fTurn(newCube);
+                        priority = heuristic(newCube) + curr.pathCost+1;
+                    Node newNode = new Node(newCube, priority, curr, move, curr.pathCost+1);
+                    if (!explored.contains(newCube)){
+                        pq.add(newNode);
+                    }
+                } else if (move == MOVES.NegFTurn && curr.lastMove != MOVES.FTurn) {
+                    cubeManip.negFTurn(newCube);
+                    priority = heuristic(newCube) + curr.pathCost+1;
+                    Node newNode = new Node(newCube, priority, curr, move, curr.pathCost+1);
+                    if (!explored.contains(newCube)){
+                        pq.add(newNode);
+                    }
+                } else if (move == MOVES.DTurn && curr.lastMove != MOVES.NegDTurn) {
+                    cubeManip.dTurn(newCube);
+                    priority = heuristic(newCube) + curr.pathCost+1;
+                    Node newNode = new Node(newCube, priority, curr, move, curr.pathCost+1);
+                    if (!explored.contains(newCube)){
+                        pq.add(newNode);
+                    }
+                } else if (move == MOVES.NegDTurn && curr.lastMove != MOVES.DTurn) {
+                    cubeManip.negDTurn(newCube);
+                    priority = heuristic(newCube) + curr.pathCost+1;
+                    Node newNode = new Node(newCube, priority, curr, move, curr.pathCost+1);
+                    if (!explored.contains(newCube)){
+                        pq.add(newNode);
+                    }
+                } else if (move == MOVES.RTurn && curr.lastMove != MOVES.NegRTurn) {
+                    cubeManip.rTurn(newCube);
+                    priority = heuristic(newCube) + curr.pathCost+1;
+                    Node newNode = new Node(newCube, priority, curr, move, curr.pathCost+1);
+                    if (!explored.contains(newCube)){
+                        pq.add(newNode);
+                    }
+                } else if (move == MOVES.NegRTurn && curr.lastMove != MOVES.RTurn) {
+                    cubeManip.negRTurn(newCube);
+                    priority = heuristic(newCube) + curr.pathCost+1;
+                    Node newNode = new Node(newCube, priority, curr, move, curr.pathCost+1);
+                    if (!explored.contains(newCube)){
+                        pq.add(newNode);
+                    }
+                }
+            }
+        }  
+    }
+
     public static void main(String[] args) {
         
         CubeManipulator cubeManip = new CubeManipulator();
@@ -215,17 +344,18 @@ public class Main {
         int depth = 1;
         Queue<Node> BFSqueue = new LinkedList<>();
         Stack<Node> IDSstack = new Stack<>();
-        PriorityQueue<Node> IDAPQ = new PriorityQueue<>();
+        PriorityQueue<Node> IDAPQ = new PriorityQueue<>(new NodeComparator());
         //Cube testcube = new Cube();
         //cubeManip.negFTurn(testcube);
 
         System.out.println("Current Cubelet Order: ");
         System.out.println(Arrays.toString(cube.getCubeletOrder()));
-        cubeManip.randomizeCube(cube, 3);
+        cubeManip.randomizeCube(cube, 5);
         System.out.println("Randomized Cubelet Order: ");
         System.out.println(Arrays.toString(cube.getCubeletOrder()));
-        System.out.println("Iterative Deepening Search, depth 3.");
+        System.out.println("BFSA* Search, depth 5.");
         //BFS(3, cube, BFSqueue, cubeManip);
-        IDS(3, cube, IDSstack, cubeManip);
+        //IDS(3, cube, IDSstack, cubeManip);
+        BFSA(5, cube, IDAPQ, cubeManip);
     }
 }

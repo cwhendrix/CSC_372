@@ -1,21 +1,71 @@
 package rubikssolver;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Cube {
     
     /// The position of the cubelets' characters in the array indicates their orientation.
     /// For the above example, the 'a' cubelet, because it is in the 0 orientation, has its position set to cubeletOrder[0].
     private String[] cubeletOrder = {"a1", "d1", "c1", "b1", "e1", "f1", "g1", "h1"};
+    private String stateCode;
 
     ////// Cube Constructor 
     /// Generates a cube in a solved state.
     /// That solved state will have cubeletOrder = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     public Cube() {
+        stateCode = "a1d1c1b1e1f1g1h1";
     }
 
     ////// Alternate Cube Constructor
     /// Allows you to generate a cube with a given cubelet order.
     public Cube(String[] cubeletOrder) {
         this.setCubeletOrder(cubeletOrder);
+        for (int i=0; i<=7; i++) {
+            stateCode = stateCode + cubeletOrder[i];
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        Cube that = (Cube) other;
+        if (Arrays.equals(this.cubeletOrder, that.cubeletOrder) == true) {
+            return true;
+        } else {
+            return false;
+        } 
+    }
+    @Override
+    public int hashCode() {
+        String hashCode = "";
+        int hashCodeint = 0;
+        for (int i=0; i<stateCode.length(); i++) {
+            if (stateCode.charAt(i) == '1' ||  stateCode.charAt(i) == '2' ||  stateCode.charAt(i) == '3') {
+                hashCode = hashCode += stateCode.charAt(i);
+            } else if (stateCode.charAt(i) == 'a') {
+                hashCode = hashCode += 0;
+            } else if (stateCode.charAt(i) == 'b') {
+                hashCode = hashCode += 1;
+            } else if (stateCode.charAt(i) == 'c') {
+                hashCode = hashCode += 2;
+            } else if (stateCode.charAt(i) == 'd') {
+                hashCode = hashCode += 3;
+            } else if (stateCode.charAt(i) == 'e') {
+                hashCode = hashCode += 4;
+            } else if (stateCode.charAt(i) == 'f') {
+                hashCode = hashCode += 5;
+            } else if (stateCode.charAt(i) == 'g') {
+                hashCode = hashCode += 6;
+            } else if (stateCode.charAt(i) == 'h') {
+                hashCode = hashCode += 7;
+            }
+        }
+        try {
+            hashCodeint = Integer.parseInt(hashCode);
+        } catch (Exception e) {
+            
+        }
+        return hashCodeint;
     }
 
     ////// isSolved Function
