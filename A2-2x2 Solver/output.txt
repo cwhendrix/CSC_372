@@ -2,328 +2,344 @@
 ===================================
 Best-First Search Finished.
 Depth: 1
-2 visited, 9 nodes long, 5 ms.
+2 visited, 4 nodes long, 7 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-2 visited, 18 nodes long, 0 ms.
+1 visited, 5 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-1 visited, 23 nodes long, 0 ms.
+1 visited, 5 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-1 visited, 28 nodes long, 1 ms.
+1 visited, 5 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-1 visited, 33 nodes long, 0 ms.
+1 visited, 5 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-3 visited, 45 nodes long, 0 ms.
+1 visited, 5 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-1 visited, 50 nodes long, 0 ms.
+1 visited, 5 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-3 visited, 63 nodes long, 1 ms.
+2 visited, 4 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-2 visited, 72 nodes long, 0 ms.
+1 visited, 5 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-1 visited, 77 nodes long, 0 ms.
+1 visited, 5 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-1 visited, 82 nodes long, 0 ms.
+1 visited, 5 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-1 visited, 87 nodes long, 0 ms.
+1 visited, 5 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-1 visited, 92 nodes long, 0 ms.
+2 visited, 4 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-1 visited, 97 nodes long, 0 ms.
+1 visited, 5 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-2 visited, 106 nodes long, 0 ms.
+1 visited, 5 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-1 visited, 111 nodes long, 2 ms.
+2 visited, 4 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-2 visited, 120 nodes long, 0 ms.
+2 visited, 4 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-2 visited, 129 nodes long, 0 ms.
+1 visited, 5 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-2 visited, 138 nodes long, 0 ms.
+2 visited, 4 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 1
-1 visited, 143 nodes long, 0 ms.
+1 visited, 5 nodes long, 0 ms.
 ============== BEST FIRST SEARCH  W. A* - DEPTH 2 ==============
 ===================================
 Best-First Search Finished.
 Depth: 2
-9 visited, 37 nodes long, 1 ms.
+14 visited, 29 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-4 visited, 54 nodes long, 0 ms.
+10 visited, 13 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-5 visited, 75 nodes long, 2 ms.
+10 visited, 13 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-8 visited, 108 nodes long, 0 ms.
+10 visited, 13 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-4 visited, 125 nodes long, 1 ms.
+12 visited, 16 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-8 visited, 158 nodes long, 0 ms.
+12 visited, 16 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-12 visited, 206 nodes long, 0 ms.
+13 visited, 25 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-10 visited, 247 nodes long, 1 ms.
+10 visited, 13 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-6 visited, 272 nodes long, 0 ms.
+12 visited, 16 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-6 visited, 297 nodes long, 0 ms.
+12 visited, 16 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-5 visited, 318 nodes long, 0 ms.
+10 visited, 13 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-6 visited, 343 nodes long, 0 ms.
+14 visited, 29 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-6 visited, 368 nodes long, 1 ms.
+10 visited, 13 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-8 visited, 401 nodes long, 0 ms.
+13 visited, 25 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-16 visited, 466 nodes long, 0 ms.
+10 visited, 13 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-10 visited, 507 nodes long, 0 ms.
+10 visited, 13 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-7 visited, 536 nodes long, 2 ms.
+15 visited, 28 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-7 visited, 565 nodes long, 0 ms.
+15 visited, 28 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-8 visited, 598 nodes long, 0 ms.
+10 visited, 13 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 2
-7 visited, 627 nodes long, 0 ms.
+10 visited, 13 nodes long, 0 ms.
 ============== BEST FIRST SEARCH  W. A* - DEPTH 3 ==============
 ===================================
 Best-First Search Finished.
 Depth: 3
-36 visited, 143 nodes long, 1 ms.
+67 visited, 84 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-26 visited, 244 nodes long, 1 ms.
+55 visited, 40 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-28 visited, 353 nodes long, 1 ms.
+55 visited, 40 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-37 visited, 498 nodes long, 1 ms.
+70 visited, 88 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-22 visited, 585 nodes long, 2 ms.
+66 visited, 75 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-22 visited, 669 nodes long, 0 ms.
+60 visited, 58 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-33 visited, 797 nodes long, 2 ms.
+61 visited, 69 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-33 visited, 924 nodes long, 1 ms.
+55 visited, 35 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-27 visited, 1030 nodes long, 0 ms.
+54 visited, 41 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-39 visited, 1183 nodes long, 2 ms.
+60 visited, 58 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-29 visited, 1295 nodes long, 1 ms.
+61 visited, 57 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-27 visited, 1398 nodes long, 2 ms.
+66 visited, 77 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-23 visited, 1489 nodes long, 1 ms.
+51 visited, 29 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-1 visited, 1494 nodes long, 0 ms.
+72 visited, 90 nodes long, 3 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-51 visited, 1691 nodes long, 3 ms.
+60 visited, 58 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-31 visited, 1816 nodes long, 1 ms.
+57 visited, 53 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-38 visited, 1967 nodes long, 1 ms.
+68 visited, 90 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-17 visited, 2034 nodes long, 0 ms.
+61 visited, 58 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-27 visited, 2138 nodes long, 1 ms.
+58 visited, 55 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 3
-20 visited, 2219 nodes long, 1 ms.
+56 visited, 49 nodes long, 0 ms.
 ============== BEST FIRST SEARCH  W. A* - DEPTH 4 ==============
 ===================================
 Best-First Search Finished.
 Depth: 4
-105 visited, 404 nodes long, 4 ms.
+303 visited, 266 nodes long, 6 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-125 visited, 883 nodes long, 5 ms.
+300 visited, 263 nodes long, 6 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-6635 visited, 25886 nodes long, 1236 ms.
+281 visited, 194 nodes long, 5 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-143 visited, 26436 nodes long, 1 ms.
+364 visited, 460 nodes long, 5 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-129 visited, 26931 nodes long, 2 ms.
+14 visited, 29 nodes long, 0 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-137 visited, 27458 nodes long, 1 ms.
+15 visited, 28 nodes long, 1 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-165 visited, 28100 nodes long, 2 ms.
+306 visited, 286 nodes long, 3 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-135 visited, 28626 nodes long, 1 ms.
+307 visited, 251 nodes long, 3 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-125 visited, 29113 nodes long, 1 ms.
+317 visited, 301 nodes long, 3 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-147 visited, 29688 nodes long, 1 ms.
+323 visited, 336 nodes long, 3 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-100 visited, 30080 nodes long, 1 ms.
+311 visited, 293 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-119 visited, 30540 nodes long, 1 ms.
+307 visited, 293 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-133 visited, 31057 nodes long, 2 ms.
+283 visited, 214 nodes long, 3 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-141 visited, 31612 nodes long, 1 ms.
+289 visited, 223 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-136 visited, 32143 nodes long, 1 ms.
+287 visited, 216 nodes long, 3 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-122 visited, 32613 nodes long, 1 ms.
+294 visited, 273 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-155 visited, 33221 nodes long, 1 ms.
+298 visited, 256 nodes long, 3 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-116 visited, 33667 nodes long, 1 ms.
+302 visited, 292 nodes long, 2 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-132 visited, 34183 nodes long, 10 ms.
+311 visited, 293 nodes long, 3 ms.
 ===================================
 Best-First Search Finished.
 Depth: 4
-103 visited, 34583 nodes long, 1 ms.
+10 visited, 13 nodes long, 0 ms.
 ============== BEST FIRST SEARCH  W. A* - DEPTH 5 ==============
 ===================================
 Best-First Search Finished.
 Depth: 5
-15974 visited, 59626 nodes long, 5800 ms.
+1480 visited, 1385 nodes long, 24 ms.
+===================================
+Best-First Search Finished.
+Depth: 5
+32703 visited, 24089 nodes long, 5514 ms.
+===================================
+Best-First Search Finished.
+Depth: 5
+1478 visited, 1255 nodes long, 20 ms.
+===================================
+Best-First Search Finished.
+Depth: 5
+1442 visited, 1123 nodes long, 15 ms.
+===================================
+Best-First Search Finished.
+Depth: 5
+1578 visited, 1623 nodes long, 21 ms.
