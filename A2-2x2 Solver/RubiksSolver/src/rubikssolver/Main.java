@@ -352,14 +352,6 @@ public class Main {
         Queue<Node> BFSqueue = new LinkedList<>();
         Stack<Node> IDSstack = new Stack<>();
         PriorityQueue<Node> IDAPQ = new PriorityQueue<>(new NodeComparator());
-        //Cube test = new Cube();
-        //cubeManip.negFTurn(test);
-        //cubeManip.negDTurn(test);
-        //IDA(2, test, IDAPQ, cubeManip, writer);
-        
-        //Cube test = new Cube();
-        //cubeManip.randomizeCube(test, 3);
-        //IDA(3, test, IDAPQ, cubeManip, writer); */
 
         for (int i=1; i <= 10; i++){
             writer.println("============== BEST FIRST SEARCH  W. A* - DEPTH " + i + " ==============");
@@ -373,7 +365,6 @@ public class Main {
             System.gc();
         }
         
-        /* 
         for (int i=1; i <= 20; i++){
             writer.println("============== ITERATIVE DEEPENING SEARCH - DEPTH " + i + " ==============");
             experimentSet = setup(i, cubeManip);
@@ -397,7 +388,7 @@ public class Main {
                 BFSqueue.clear();
             }
             System.gc();
-        } */
+        }
         
             
         writer.println("Test");
