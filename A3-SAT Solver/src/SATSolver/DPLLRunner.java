@@ -1,19 +1,26 @@
 package SATSolver;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class DPLLRunner { 
-    HashSet<Clause> clauses = new HashSet<Clause>();    // set of clauses making up the sentence in CNF
     HashSet<Integer> symbols = new HashSet<Integer>();  // set of the different symbols
     
     public DPLLRunner() {
 
     }
-    public boolean DPLLSAT(HashSet<Clause> clauses, int numVariables) {
+    public boolean DPLLSAT(Sentence sentence, int numVariables) {
         int[] model = new int[numVariables + 1];
-        return DPLL(clauses, symbols, model);
+        return DPLL(sentence, symbols, model);
     }
-    private boolean DPLL(HashSet<Clause> clauses, HashSet<Integer> symbols, int[] model) {
+    private boolean DPLL(Sentence sentence, HashSet<Integer> symbols, int[] model) {
+        boolean solved = true;
+        // Check if all clauses are true
+        
+        // Check if clause is false
+
+        // Check if all clauses are
+
         return true;
     }
 }
