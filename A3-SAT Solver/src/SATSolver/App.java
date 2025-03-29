@@ -99,7 +99,7 @@ public class App {
                              "A3Formulas/f0040-08-s.cnf",
                              "A3Formulas/f0040-08-u.cnf"};
 
-        for (int i=0; i<formulas.length; i++) {
+        for (int i=0; i<testCases.length; i++) {
             sentence = readDIMACS(testCases[i], sentence, dpllRunner);
             System.out.println(dpllRunner.DPLLSAT(sentence, dpllRunner.symbols.size()));
             sentence = new ArrayList<>();
