@@ -7,6 +7,7 @@ import java.util.Objects;
 /// Representation of a disjunction of literals
 public class Clause {
     public HashSet<Integer> literals = new HashSet<Integer>();
+    public HashSet<Integer> symbols = new HashSet<Integer>();
 
     public Clause() {
 
@@ -16,8 +17,9 @@ public class Clause {
         if (literals.size() == 1) {
             return literals.iterator().next();
         }
-        return -1;
+        return 0;
     }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) {
@@ -36,10 +38,6 @@ public class Clause {
     }
     @Override
     public int hashCode() {
-        return Objects.hash(literals);
-    }
-    // Returns true if the clause evaluates to true given the current assignments to the model
-    public boolean isTrue(int[] model) {
-        return true;
+        return Objects.hash(literals, symbols);
     }
 }

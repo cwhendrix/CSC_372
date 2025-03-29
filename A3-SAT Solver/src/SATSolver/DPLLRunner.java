@@ -16,7 +16,9 @@ public class DPLLRunner {
     private boolean DPLL(Sentence sentence, HashSet<Integer> symbols, int[] model) {
         boolean solved = true;
         // Check if all clauses are true
-        
+        if (sentence.isEmpty()) {
+            
+        }
         // Check if clause is false
 
         // Check if all clauses are
