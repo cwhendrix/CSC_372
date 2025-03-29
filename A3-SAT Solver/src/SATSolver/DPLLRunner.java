@@ -53,6 +53,35 @@ public class DPLLRunner {
         return null;
     }
 
+    // returns a pure literal (literal who only appears in one polarity throughout the sentence)
+    public static Literal returnPureLiteral(ArrayList<Clause> sentence, HashSet<Integer> symbols) {
+        Literal temp = null;
+        Literal negTemp = null;
+        boolean purity = true;
+        boolean negPurity = true;
+        for (Integer symbol : symbols) {
+            temp = new Literal(symbol, false);
+            negTemp = new Literal(symbol, true);
+            for (Clause clause : sentence) {
+                if (clause.literals.contains(temp)) {
+                    negPurity = false;
+                }
+                if (clause.literals.contains(negTemp)) {
+                    purity = false;
+                }
+                if (!purity && !negPurity) {
+                    break;
+                }
+            }
+        }
+        if (purity) {
+            return temp;
+        } else if (negPurity) {
+            return negTemp;
+        }
+        return null;
+    }
+
     public boolean DPLLSAT(ArrayList<Clause> sentence, int numVariables) {
         Map<Integer, Boolean>  model = new HashMap<>();
         boolean sat = DPLL(sentence, symbols, model);
@@ -74,6 +103,15 @@ public class DPLLRunner {
             unit = returnUnitClause(sentence);
         }
 
+        // Pure Literal Elimination
+        Literal pure = returnPureLiteral(sentence, symbols);
+        while (pure != null) {
+            sentence = assign(sentence, pure);
+            symbols.remove(pure.returnVar());
+            System.out.println("REMOVED PURE LITERAL");
+            pure = returnPureLiteral(sentence, symbols);
+        }
+
         // Check if all clauses are true = BASE CASE
         if (sentence.isEmpty()) {
             System.out.println("BRANCH SATISFIABLE");
@@ -87,15 +125,18 @@ public class DPLLRunner {
         // Pure Symbol Elimination
 
         // Heuristic Time
-        Integer var = symbols.iterator().next();
-        symbols.remove(var);
-        ArrayList<Clause> newSentenceTrue = assign(new ArrayList<Clause>(sentence), new Literal(var, false)); /// Assign literal true
-        Map<Integer, Boolean>  trueModel = new HashMap<>(model);
-        trueModel.put(var, true);
-        ArrayList<Clause> newSentenceFalse = assign(new ArrayList<Clause>(sentence), new Literal(var, true)); /// Assign literal false
-        Map<Integer, Boolean>  falseModel = new HashMap<>(model);
-        falseModel.put(var, false);
+        if (symbols.iterator().hasNext()) {
+            Integer var = symbols.iterator().next();
+            symbols.remove(var);
+            ArrayList<Clause> newSentenceTrue = assign(new ArrayList<Clause>(sentence), new Literal(var, false)); /// Assign literal true
+            Map<Integer, Boolean>  trueModel = new HashMap<>(model);
+            trueModel.put(var, true);
+            ArrayList<Clause> newSentenceFalse = assign(new ArrayList<Clause>(sentence), new Literal(var, true)); /// Assign literal false
+            Map<Integer, Boolean>  falseModel = new HashMap<>(model);
+            falseModel.put(var, false);
 
-        return DPLL(newSentenceTrue, symbols, trueModel) | DPLL(newSentenceFalse, symbols, falseModel);
+            return DPLL(newSentenceTrue, symbols, trueModel) | DPLL(newSentenceFalse, symbols, falseModel);
+        }
+        return false;
     }
 }

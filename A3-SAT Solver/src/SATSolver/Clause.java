@@ -1,5 +1,6 @@
 package SATSolver;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashSet;
 import java.util.Objects;
@@ -44,5 +45,20 @@ public class Clause {
     @Override
     public int hashCode() {
         return Objects.hash(literals);
+    }
+
+    @Override
+    public String toString() {
+        ArrayList<String> rep = new ArrayList<>();
+        for (Literal i : literals) {
+            String temp;
+            if (i.isNegation()) {
+                temp = "-" + Integer.toString(i.returnVar());
+            } else {
+                temp = Integer.toString(i.returnVar());
+            }
+            rep.add(temp);
+        }
+        return rep.toString();
     }
 }
