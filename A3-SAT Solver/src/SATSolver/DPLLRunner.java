@@ -23,9 +23,9 @@ public class DPLLRunner {
             if (clause.literals.contains(new Literal(assigned.returnVar(), !assigned.isNegation()))) {
                 Clause newClause = new Clause(clause);
                 newClause.literals.remove(new Literal(assigned.returnVar(), !assigned.isNegation()));
-                newSentence.add(newClause);
+                newSentence.add(newClause); // add it without the literal; because it's negated, the literal is false, so we need something else to make that clause true
             } else {
-                newSentence.add(clause);
+                newSentence.add(clause);    // clause doesn't contain literal
             }
         }
 
@@ -60,6 +60,8 @@ public class DPLLRunner {
         boolean purity = true;
         boolean negPurity = true;
         for (Integer symbol : symbols) {
+            purity = true;
+            negPurity = true;
             temp = new Literal(symbol, false);
             negTemp = new Literal(symbol, true);
             for (Clause clause : sentence) {
@@ -106,7 +108,7 @@ public class DPLLRunner {
             Literal unitLit = unit.unitClause();
             sentence = assign(sentence, unitLit);
             symbols.remove(unitLit.returnVar());
-            //System.out.println("REMOVED UNIT CLAUSE");
+            //System.out.println("REMOVED UNIT CLAUSE: " + unitLit.toString());
             if (!unitLit.isNegation()) {
                 model.put(unitLit.returnVar(), true);
             } else {
@@ -120,7 +122,7 @@ public class DPLLRunner {
         while (pure != null) {
             sentence = assign(sentence, pure);
             symbols.remove(pure.returnVar());
-            //System.out.println("REMOVED PURE LITERAL");
+            //System.out.println("REMOVED PURE LITERAL: " + pure.toString());
             if (!pure.isNegation()) {
                 model.put(pure.returnVar(), true);
             } else {
@@ -131,29 +133,34 @@ public class DPLLRunner {
 
         // Check if all clauses are true = BASE CASE
         if (sentence.isEmpty()) {
-            //System.out.println("BRANCH SATISFIABLE");
+            //System.out.println("BRANCH SATISFIABLE: " + model.toString());
             return true;
         }
         // Check if clause is false = BASE CASE
         if (hasEmpty(sentence)) {
-            //System.out.println("BRANCH UNSATISFIABLE");
+            //System.out.println("BRANCH UNSATISFIABLE: " + model.toString());
             return false;
         }
-        // Pure Symbol Elimination
 
-        // Heuristic Time
-        if (symbols.iterator().hasNext()) {
-            Integer var = symbols.iterator().next();
-            symbols.remove(var);
-            ArrayList<Clause> newSentenceTrue = assign(new ArrayList<Clause>(sentence), new Literal(var, false)); /// Assign literal true
-            Map<Integer, Boolean>  trueModel = new HashMap<>(model);
-            trueModel.put(var, true);
-            ArrayList<Clause> newSentenceFalse = assign(new ArrayList<Clause>(sentence), new Literal(var, true)); /// Assign literal false
-            Map<Integer, Boolean>  falseModel = new HashMap<>(model);
-            falseModel.put(var, false);
-
-            return DPLL(newSentenceTrue, symbols, trueModel) | DPLL(newSentenceFalse, symbols, falseModel);
+        // Heuristic Time\
+        Integer var = symbols.iterator().next();
+        symbols.remove(var);
+        ArrayList<Clause> newSentenceTrue = assign(new ArrayList<Clause>(sentence), new Literal(var, false)); /// Assign literal true
+        Map<Integer, Boolean>  trueModel = new HashMap<>();
+        for (Integer assignment : model.keySet()) {
+            trueModel.put(assignment, model.get(assignment));
         }
-        return false;
+        trueModel.put(var, true);
+        HashSet<Integer> symbolsTrue = new HashSet<Integer>(symbols);
+
+        ArrayList<Clause> newSentenceFalse = assign(new ArrayList<Clause>(sentence), new Literal(var, true)); /// Assign literal false
+        Map<Integer, Boolean>  falseModel = new HashMap<>();
+        for (Integer assignment : model.keySet()) {
+            falseModel.put(assignment, model.get(assignment));
+        }
+        falseModel.put(var, false);
+        HashSet<Integer> symbolsFalse = new HashSet<Integer>(symbols);
+
+        return DPLL(newSentenceTrue, symbolsTrue, trueModel) | DPLL(newSentenceFalse, symbolsFalse, falseModel);
     }
 }

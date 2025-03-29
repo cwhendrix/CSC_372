@@ -14,7 +14,7 @@ public class Clause {
     }
     public Clause(Clause that) {
         for (Literal i: that.literals) {
-            this.literals.add(i);
+            this.literals.add(new Literal(i.returnVar(), i.isNegation()));
         }
     }
     

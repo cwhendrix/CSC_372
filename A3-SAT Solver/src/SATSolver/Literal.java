@@ -37,5 +37,13 @@ public class Literal {
     public int hashCode() {
         return Objects.hash(var, neg);
     }
+    @Override
+    public String toString() {
+        if (isNegation()) {
+            return "-" + Integer.toString(this.returnVar());
+        } else {
+            return Integer.toString(this.returnVar());
+        }
+    }
 }
 

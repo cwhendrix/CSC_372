@@ -99,12 +99,37 @@ public class App {
                              "A3Formulas/f0040-08-s.cnf",
                              "A3Formulas/f0040-08-u.cnf"};
 
-        for (int i=0; i<testCases.length; i++) {
-            sentence = readDIMACS(testCases[i], sentence, dpllRunner);
+        for (int i=0; i<formulas.length; i++) {
+            sentence = readDIMACS(formulas[i], sentence, dpllRunner);
             System.out.println(dpllRunner.DPLLSAT(sentence, dpllRunner.symbols.size()));
             sentence = new ArrayList<>();
             dpllRunner = new DPLLRunner();
             System.gc();
-        }
+        } 
+/* 
+        ArrayList<Clause> testSentence = new ArrayList<>();
+        Clause clause1 = new Clause();
+        clause1.literals.add(new Literal(1, true));
+        clause1.literals.add(new Literal(3, false));
+        testSentence.add(clause1);
+        Clause clause2 = new Clause();
+        clause2.literals.add(new Literal(2, true));
+        testSentence.add(clause2);
+        Clause clause3 = new Clause();
+        clause3.literals.add(new Literal(4, false));
+        clause3.literals.add(new Literal(1, true));
+        testSentence.add(clause3);
+        dpllRunner.symbols.add(1);
+        dpllRunner.symbols.add(2);
+        dpllRunner.symbols.add(3);
+        dpllRunner.symbols.add(4);
+        System.out.println(dpllRunner.DPLLSAT(testSentence, dpllRunner.symbols.size()));
+
+        sentence = new ArrayList<>();
+        dpllRunner = new DPLLRunner();
+        System.gc();
+
+        sentence = readDIMACS("A3_tests/10.48.1494607484.cnf", sentence, dpllRunner);
+        System.out.println(dpllRunner.DPLLSAT(sentence, dpllRunner.symbols.size())); */
     }
 }
