@@ -84,11 +84,18 @@ public class DPLLRunner {
 
     public boolean DPLLSAT(ArrayList<Clause> sentence, int numVariables) {
         Map<Integer, Boolean>  model = new HashMap<>();
+        long startTime = System.currentTimeMillis();
         boolean sat = DPLL(sentence, symbols, model);
         if (sat) {
-            System.out.println("SENTENCE SATISFIABLE");
+            long estimatedTime = (System.currentTimeMillis() - startTime);
+            System.out.println("============================");
+            System.out.println("SENTENCE SATISFIABLE: " + model.toString());
+            System.out.println("Time to complete: " + estimatedTime + " ms.");
         } else {
-            System.out.println("SENTENCE UNSATISFIABLE");
+            long estimatedTime = (System.currentTimeMillis() - startTime);
+            System.out.println("============================");
+            System.out.println("SENTENCE UNSATISFIABLE: " + model.toString());
+            System.out.println("Time to complete: " + estimatedTime + " ms.");
         }
         return sat;
     }
@@ -99,7 +106,12 @@ public class DPLLRunner {
             Literal unitLit = unit.unitClause();
             sentence = assign(sentence, unitLit);
             symbols.remove(unitLit.returnVar());
-            System.out.println("REMOVED UNIT CLAUSE");
+            //System.out.println("REMOVED UNIT CLAUSE");
+            if (!unitLit.isNegation()) {
+                model.put(unitLit.returnVar(), true);
+            } else {
+                model.put(unitLit.returnVar(), false);
+            }
             unit = returnUnitClause(sentence);
         }
 
@@ -108,18 +120,23 @@ public class DPLLRunner {
         while (pure != null) {
             sentence = assign(sentence, pure);
             symbols.remove(pure.returnVar());
-            System.out.println("REMOVED PURE LITERAL");
+            //System.out.println("REMOVED PURE LITERAL");
+            if (!pure.isNegation()) {
+                model.put(pure.returnVar(), true);
+            } else {
+                model.put(pure.returnVar(), false);
+            }
             pure = returnPureLiteral(sentence, symbols);
         }
 
         // Check if all clauses are true = BASE CASE
         if (sentence.isEmpty()) {
-            System.out.println("BRANCH SATISFIABLE");
+            //System.out.println("BRANCH SATISFIABLE");
             return true;
         }
         // Check if clause is false = BASE CASE
         if (hasEmpty(sentence)) {
-            System.out.println("BRANCH UNSATISFIABLE");
+            //System.out.println("BRANCH UNSATISFIABLE");
             return false;
         }
         // Pure Symbol Elimination

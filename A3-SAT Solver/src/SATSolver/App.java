@@ -52,26 +52,59 @@ public class App {
     }
     public static void main(String[] args) throws Exception {
         DPLLRunner dpllRunner = new DPLLRunner();
-        dpllRunner.symbols.add(1);
-        dpllRunner.symbols.add(2);
-        dpllRunner.symbols.add(3);
         ArrayList<Clause> sentence = new ArrayList<>();
-        /* 
-        Clause clause1 = new Clause();
-        clause1.literals.add(new Literal(1, false));
-        clause1.literals.add(new Literal(2, false));
-        clause1.literals.add(new Literal(3, false));
-        Clause clause2 = new Clause();
-        clause2.literals.add(new Literal(1, false));
-        clause2.literals.add(new Literal(2, true));
-        clause2.literals.add(new Literal(3, false));
-        */
 
-        //sentence.add(clause1);
-        //sentence.add(clause2);
+        String[] testCases = {"A3_tests/10.40.160707067.cnf",
+                              "A3_tests/10.40.967323288.cnf", 
+                              "A3_tests/10.42.504071595.cnf",
+                              "A3_tests/10.42.1465130262.cnf",
+                              "A3_tests/10.44.1247388329.cnf",
+                              "A3_tests/10.44.1667358355.cnf",
+                              "A3_tests/10.44.1667358355.cnf",
+                              "A3_tests/10.46.183405239.cnf",
+                              "A3_tests/10.46.623142927.cnf",
+                              "A3_tests/10.48.640112774.cnf",
+                              "A3_tests/10.48.1494607484.cnf"};
 
-        // System.out.println(dpllRunner.DPLLSAT(sentence, 3));
-        sentence = readDIMACS("A3_tests/10.40.160707067.cnf", sentence, dpllRunner);
-        System.out.println(sentence.toString());
+        String[] formulas = {"A3Formulas/f0020-01-s.cnf",
+                             "A3Formulas/f0020-01-u.cnf",
+                             "A3Formulas/f0020-02-s.cnf",
+                             "A3Formulas/f0020-02-u.cnf",
+                             "A3Formulas/f0020-03-s.cnf",
+                             "A3Formulas/f0020-03-u.cnf",
+                             "A3Formulas/f0020-04-s.cnf",
+                             "A3Formulas/f0020-04-u.cnf",
+                             "A3Formulas/f0020-05-s.cnf",
+                             "A3Formulas/f0020-05-u.cnf",
+                             "A3Formulas/f0020-06-s.cnf",
+                             "A3Formulas/f0020-06-u.cnf",
+                             "A3Formulas/f0020-07-s.cnf",
+                             "A3Formulas/f0020-07-u.cnf",
+                             "A3Formulas/f0020-08-s.cnf",
+                             "A3Formulas/f0020-08-u.cnf",
+                             "A3Formulas/f0040-01-s.cnf",
+                             "A3Formulas/f0040-01-u.cnf",
+                             "A3Formulas/f0040-02-s.cnf",
+                             "A3Formulas/f0040-02-u.cnf",
+                             "A3Formulas/f0040-03-s.cnf",
+                             "A3Formulas/f0040-03-u.cnf",
+                             "A3Formulas/f0040-04-s.cnf",
+                             "A3Formulas/f0040-04-u.cnf",
+                             "A3Formulas/f0040-05-s.cnf",
+                             "A3Formulas/f0040-05-u.cnf",
+                             "A3Formulas/f0040-06-s.cnf",
+                             "A3Formulas/f0040-06-u.cnf",
+                             "A3Formulas/f0040-07-s.cnf",
+                             "A3Formulas/f0040-07-u.cnf",
+                             "A3Formulas/f0040-08-s.cnf",
+                             "A3Formulas/f0040-08-u.cnf"};
+
+        for (int i=0; i<formulas.length; i++) {
+            sentence = readDIMACS(testCases[i], sentence, dpllRunner);
+            System.out.println(dpllRunner.DPLLSAT(sentence, dpllRunner.symbols.size()));
+            sentence = new ArrayList<>();
+            dpllRunner = new DPLLRunner();
+            System.gc();
+        }
     }
 }
