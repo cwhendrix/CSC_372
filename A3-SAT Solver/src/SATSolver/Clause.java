@@ -6,18 +6,23 @@ import java.util.Objects;
 
 /// Representation of a disjunction of literals
 public class Clause {
-    public HashSet<Integer> literals = new HashSet<Integer>();
-    public HashSet<Integer> symbols = new HashSet<Integer>();
+    public HashSet<Literal> literals = new HashSet<Literal>();  // The literals in the clause 
 
     public Clause() {
 
     }
+    public Clause(Clause that) {
+        for (Literal i: that.literals) {
+            this.literals.add(i);
+        }
+    }
+    
     // If it's a unit clause, return the one literal (whose polarity indicates the assignment)
-    public int unitClause() {
+    public Literal unitClause() {
         if (literals.size() == 1) {
             return literals.iterator().next();
         }
-        return 0;
+        return null;
     }
 
     @Override
@@ -26,7 +31,7 @@ public class Clause {
             return true;
         }
         Clause that = (Clause) object;
-        for (Integer i : literals) {
+        for (Literal i : literals) {
             if (!that.literals.contains(i)) {
                 return false;
             }
@@ -38,6 +43,6 @@ public class Clause {
     }
     @Override
     public int hashCode() {
-        return Objects.hash(literals, symbols);
+        return Objects.hash(literals);
     }
 }
