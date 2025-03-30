@@ -92,21 +92,21 @@ public class DPLLRunner {
     public boolean DPLLSAT(ArrayList<Clause> sentence, int numVariables, PrintWriter writer) {
         Map<Integer, Boolean>  model = new HashMap<>();
         long startTime = System.currentTimeMillis();
-        boolean sat = DPLL(sentence, symbols, model);
+        boolean sat = DPLL(sentence, symbols, model, writer);
         if (sat) {
             long estimatedTime = (System.currentTimeMillis() - startTime);
-            writer.println("SENTENCE SATISFIABLE: " + model.toString());
+            writer.println("SENTENCE SATISFIABLE.");
             writer.println("Time to complete: " + estimatedTime + " ms.");
             writer.println(" ");
         } else {
             long estimatedTime = (System.currentTimeMillis() - startTime);
-            writer.println("SENTENCE UNSATISFIABLE: " + model.toString());
+            writer.println("SENTENCE UNSATISFIABLE.");
             writer.println("Time to complete: " + estimatedTime + " ms.");
             writer.println(" ");
         }
         return sat;
     }
-    private boolean DPLL(ArrayList<Clause> sentence, HashSet<Integer> symbols, Map<Integer, Boolean> model) {
+    private boolean DPLL(ArrayList<Clause> sentence, HashSet<Integer> symbols, Map<Integer, Boolean> model, PrintWriter writer) {
         // Unit Clause Elimination
         Clause unit = returnUnitClause(sentence);
         while (unit != null) {
@@ -138,7 +138,7 @@ public class DPLLRunner {
 
         // Check if all clauses are true = BASE CASE
         if (sentence.isEmpty()) {
-            //System.out.println("BRANCH SATISFIABLE: " + model.toString());
+            writer.println("MODEL: " + model.toString());
             return true;
         }
         // Check if clause is false = BASE CASE
@@ -166,6 +166,6 @@ public class DPLLRunner {
         falseModel.put(var, false);
         HashSet<Integer> symbolsFalse = new HashSet<Integer>(symbols);
 
-        return DPLL(newSentenceTrue, symbolsTrue, trueModel) | DPLL(newSentenceFalse, symbolsFalse, falseModel);
+        return DPLL(newSentenceTrue, symbolsTrue, trueModel, writer) | DPLL(newSentenceFalse, symbolsFalse, falseModel, writer);
     }
 }
