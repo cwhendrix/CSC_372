@@ -3,6 +3,8 @@ package SATSolver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -19,7 +21,7 @@ public class App {
         int numSymbols = Integer.parseInt(curr[2]);
         int numClauses = Integer.parseInt(curr[3]);
 
-        System.out.println("NUM SYMBOLS: " + numSymbols +", NUM CLAUSES: " + numClauses);
+        // System.out.println("NUM SYMBOLS: " + numSymbols +", NUM CLAUSES: " + numClauses);
         
         // Create symbols array
         HashSet<Integer> symbols = new HashSet<Integer>();
@@ -51,8 +53,6 @@ public class App {
         return sentence;
     }
     public static void main(String[] args) throws Exception {
-        DPLLRunner dpllRunner = new DPLLRunner();
-        ArrayList<Clause> sentence = new ArrayList<>();
 
         String[] testCases = {"A3_tests/10.40.160707067.cnf",
                               "A3_tests/10.40.967323288.cnf", 
@@ -99,37 +99,21 @@ public class App {
                              "A3Formulas/f0040-08-s.cnf",
                              "A3Formulas/f0040-08-u.cnf"};
 
+        DPLLRunner dpllRunner = new DPLLRunner();
+        ArrayList<Clause> sentence = new ArrayList<>();
+        FileOutputStream file = new FileOutputStream("output.txt");
+        PrintWriter writer = new PrintWriter(file, true);
+
+
+        writer.println("============== DAVIS-PUTNAM-LOGEMAN-LOVELAND ALGORITHM ==============");
         for (int i=0; i<formulas.length; i++) {
             sentence = readDIMACS(formulas[i], sentence, dpllRunner);
-            System.out.println(dpllRunner.DPLLSAT(sentence, dpllRunner.symbols.size()));
+            writer.println("============================");
+            writer.println("File: " + formulas[i]);
+            boolean result = dpllRunner.DPLLSAT(sentence, dpllRunner.symbols.size(), writer);
             sentence = new ArrayList<>();
             dpllRunner = new DPLLRunner();
             System.gc();
         } 
-/* 
-        ArrayList<Clause> testSentence = new ArrayList<>();
-        Clause clause1 = new Clause();
-        clause1.literals.add(new Literal(1, true));
-        clause1.literals.add(new Literal(3, false));
-        testSentence.add(clause1);
-        Clause clause2 = new Clause();
-        clause2.literals.add(new Literal(2, true));
-        testSentence.add(clause2);
-        Clause clause3 = new Clause();
-        clause3.literals.add(new Literal(4, false));
-        clause3.literals.add(new Literal(1, true));
-        testSentence.add(clause3);
-        dpllRunner.symbols.add(1);
-        dpllRunner.symbols.add(2);
-        dpllRunner.symbols.add(3);
-        dpllRunner.symbols.add(4);
-        System.out.println(dpllRunner.DPLLSAT(testSentence, dpllRunner.symbols.size()));
-
-        sentence = new ArrayList<>();
-        dpllRunner = new DPLLRunner();
-        System.gc();
-
-        sentence = readDIMACS("A3_tests/10.48.1494607484.cnf", sentence, dpllRunner);
-        System.out.println(dpllRunner.DPLLSAT(sentence, dpllRunner.symbols.size())); */
     }
 }

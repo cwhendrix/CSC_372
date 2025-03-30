@@ -1,5 +1,9 @@
 package SATSolver;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,7 +11,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class DPLLRunner { 
-    HashSet<Integer> symbols = new HashSet<Integer>();  // set of the different symbols
+    HashSet<Integer> symbols = new HashSet<Integer>();
+      // set of the different symbols
     
     public DPLLRunner() {
 
@@ -84,20 +89,20 @@ public class DPLLRunner {
         return null;
     }
 
-    public boolean DPLLSAT(ArrayList<Clause> sentence, int numVariables) {
+    public boolean DPLLSAT(ArrayList<Clause> sentence, int numVariables, PrintWriter writer) {
         Map<Integer, Boolean>  model = new HashMap<>();
         long startTime = System.currentTimeMillis();
         boolean sat = DPLL(sentence, symbols, model);
         if (sat) {
             long estimatedTime = (System.currentTimeMillis() - startTime);
-            System.out.println("============================");
-            System.out.println("SENTENCE SATISFIABLE: " + model.toString());
-            System.out.println("Time to complete: " + estimatedTime + " ms.");
+            writer.println("SENTENCE SATISFIABLE: " + model.toString());
+            writer.println("Time to complete: " + estimatedTime + " ms.");
+            writer.println(" ");
         } else {
             long estimatedTime = (System.currentTimeMillis() - startTime);
-            System.out.println("============================");
-            System.out.println("SENTENCE UNSATISFIABLE: " + model.toString());
-            System.out.println("Time to complete: " + estimatedTime + " ms.");
+            writer.println("SENTENCE UNSATISFIABLE: " + model.toString());
+            writer.println("Time to complete: " + estimatedTime + " ms.");
+            writer.println(" ");
         }
         return sat;
     }
