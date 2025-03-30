@@ -107,7 +107,7 @@ public class DPLLRunner {
         return sat;
     }
     private boolean DPLL(ArrayList<Clause> sentence, HashSet<Integer> symbols, Map<Integer, Boolean> model, PrintWriter writer) {
-        // Unit Clause Elimination
+        // Unit Clause Elimination - do this first in case that we can make everything satisfiable with it
         Clause unit = returnUnitClause(sentence);
         while (unit != null) {
             Literal unitLit = unit.unitClause();
@@ -122,7 +122,7 @@ public class DPLLRunner {
             unit = returnUnitClause(sentence);
         }
 
-        // Pure Literal Elimination
+        // Pure Literal Elimination - do this first in case that we can make everything satisfiable with it
         Literal pure = returnPureLiteral(sentence, symbols);
         while (pure != null) {
             sentence = assign(sentence, pure);
@@ -138,7 +138,7 @@ public class DPLLRunner {
 
         // Check if all clauses are true = BASE CASE
         if (sentence.isEmpty()) {
-            writer.println("MODEL: " + model.toString());
+            // writer.println("MODEL: " + model.toString());
             return true;
         }
         // Check if clause is false = BASE CASE

@@ -93,6 +93,46 @@ public class App {
         return sentence;
     }
 
+    public static ArrayList<Clause> readDIMACS(String input, ArrayList<Clause> sentence, HillclimbRunner runner) throws Exception{
+        File dimacs = new File(input);
+        Scanner scanner = new Scanner(dimacs);
+        String data = scanner.nextLine();
+        String[] curr = data.split(" ");
+        int numSymbols = Integer.parseInt(curr[2]);
+        int numClauses = Integer.parseInt(curr[3]);
+
+        // System.out.println("NUM SYMBOLS: " + numSymbols +", NUM CLAUSES: " + numClauses);
+        
+        // Create symbols array
+        HashSet<Integer> symbols = new HashSet<Integer>();
+        for (int k = 1; k <= numSymbols; k++) {
+            symbols.add(k);
+        }
+        runner.symbols = symbols;
+        
+        
+        // Parse the rest of the lines
+        for (int i = 1; i <= numClauses; i++) {
+            data = scanner.nextLine();
+            data = data.trim();
+            curr = data.split(" ");
+            Clause newClause = new Clause();
+            for (int j = 0; j < curr.length; j++) {
+                int currLit = Integer.parseInt(curr[j]);
+                if (currLit != 0) {
+                    if (currLit > 0) {
+                        newClause.literals.add(new Literal(currLit, false));
+                    } else {
+                        newClause.literals.add(new Literal(Math.abs(currLit), true));
+                    }
+                }
+            }
+            sentence.add(newClause);
+        }
+        scanner.close();
+        return sentence;
+    }
+
     public static void main(String[] args) throws Exception {
 
         String[] testCases = {"A3_tests/10.40.160707067.cnf",
@@ -145,7 +185,7 @@ public class App {
         FileOutputStream file = new FileOutputStream("output.txt");
         PrintWriter writer = new PrintWriter(file, true);
 
-        /* 
+        
         writer.println("============== DAVIS-PUTNAM-LOGEMAN-LOVELAND ALGORITHM ==============");
         for (int i=0; i<formulas.length; i++) {
             sentence = readDIMACS(formulas[i], sentence, dpllRunner);
@@ -156,8 +196,7 @@ public class App {
             dpllRunner = new DPLLRunner();
             System.gc();
         } 
-            System.out.println("DPLL Finished.");
-        
+        System.out.println("DPLL Finished.");
 
         WalkSATRunner walksatRunner = new WalkSATRunner();
         writer.println("============== WALKSAT ALGORITHM ==============");
@@ -175,8 +214,19 @@ public class App {
         } 
         System.out.println("WalkSAT finished.");
 
-        */
+        HillclimbRunner hillclimber = new HillclimbRunner();
+        writer.println("============== HILL-CLIMBING (GREEDY LOCAL SEARCH) ALGORITHM ==============");
+        for (int i=0; i<formulas.length; i++) {
+            writer.println("============================");
+            writer.println("File: " + formulas[i]);
+            sentence = readDIMACS(formulas[i], sentence, hillclimber);
+            boolean result = hillclimber.HillClimb(sentence, hillclimber.symbols.size(), writer);
+            sentence = new ArrayList<>();
+            hillclimber = new HillclimbRunner();
+            System.gc();
+        } 
+        System.out.println("Hillclimb finished.");
 
-        
+
     }
 }
