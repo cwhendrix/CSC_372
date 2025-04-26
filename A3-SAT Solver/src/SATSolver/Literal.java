@@ -1,6 +1,12 @@
 package SATSolver;
 
 import java.util.Objects;
+import com.google.ortools.Loader;
+import com.google.ortools.init.OrToolsVersion;
+import com.google.ortools.linearsolver.MPConstraint;
+import com.google.ortools.linearsolver.MPObjective;
+import com.google.ortools.linearsolver.MPSolver;
+import com.google.ortools.linearsolver.MPVariable;
 
 public class Literal {
     private int var; // the number of the literal, corresponding to the variable of the same name
