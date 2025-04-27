@@ -1,11 +1,14 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
         ////// SETUP TIME
         /// create nodes
         ArrayList<Node> nodes = new ArrayList<Node>();
+        Scanner scn = new Scanner(System.in);
 
         Node burglarNode = new Node(0, "Burglar", 0);
         double[] burglarCPT = {0.02};
@@ -45,22 +48,29 @@ public class App {
         double[] jointDist = new double[(int) Math.pow(2, nodes.size()) - 1];
         JDConstructor(jointDist, nodes);
         // System.out.println(Arrays.toString(jointDist));
-        ArrayList<Integer> queryVars = new ArrayList<Integer>(nodes.size() + 1);    // evidencevars must be a subset of queryvars. that is, all elements of eviVars are also elements of queryvars
-        ArrayList<Integer> evidenceVars = new ArrayList<Integer>(nodes.size() + 1);
 
-        queryVars.add(0, 1);
-        queryVars.add(1, null);
-        queryVars.add(2, 0);
-        queryVars.add(3, null);
-        queryVars.add(4, 0);
+        while (true) {
+            String response = printGUI(scn);
+            ArrayList<Integer> queryVars = new ArrayList<Integer>(nodes.size() + 1);    // evidencevars must be a subset of queryvars. that is, all elements of eviVars are also elements of queryvars
+            ArrayList<Integer> evidenceVars = new ArrayList<Integer>(nodes.size() + 1);
+            // System.out.println("INPUT: " + response);
+            parseInput(response, queryVars, evidenceVars);
+            // System.out.println(queryVars);
+            // System.out.println(evidenceVars);
+            System.out.println("=====");
+            System.out.println("EXACT INFERENCE: JOINT DISTRIBUTION");
+            System.out.println("Probability (as decimal): " + jdQuery(jointDist, queryVars, evidenceVars));
+            System.out.println("=====");
+            System.out.println("APPROXIMATE INFERENCE: REJECTION SAMPLING");
+            ArrayList<String> simulations = runSimulations(nodes, 100000);
+            System.out.println("Probability (as decimal): " + rsQuery(simulations, queryVars, evidenceVars));
+        }
 
-        evidenceVars.add(0, null);
-        evidenceVars.add(1, null);
-        evidenceVars.add(2, null);
-        evidenceVars.add(3, null);
-        evidenceVars.add(4, 0);
+        // System.out.println(jdQuery(jointDist, queryVars, evidenceVars));
 
-        System.out.println(jdQuery(jointDist, queryVars, evidenceVars));
+        // ArrayList<String> simulations = runSimulations(nodes, 100000);
+        // System.out.println(simulations);
+        // System.out.println(rsQuery(simulations, queryVars, evidenceVars));
     }
 
     public static void JDConstructor(double[] jd, ArrayList<Node> nodes) {
@@ -145,6 +155,156 @@ public class App {
                 evidenceAccumulator = evidenceAccumulator + jd[i];
             }
         }
+        if (evidenceAccumulator == 0) {
+            evidenceAccumulator = 1;
+        }
         return (queryAccumulator / evidenceAccumulator);
+    }
+
+    public static ArrayList<String> runSimulations(ArrayList<Node> nodes, int numSims) {
+        Random random = new Random();
+        double rand = 0;
+        ArrayList<String> sims = new ArrayList<String>();
+        
+        for (int i = 0; i <= numSims; i++) {    // for each simulation
+            String currSim = "";
+            for(Node node : nodes) {    // calculate each variable for the simulation
+                if (node.parents.isEmpty()) {
+                    rand = random.nextDouble();
+                    if (rand <= node.getCpt()[0]) {
+                        currSim = "1" + currSim;
+                    } else {
+                        currSim = "0" + currSim;
+                    }
+                } else {
+                    String parString = "";
+                    for (Integer parent : node.parents) {
+                        parString = String.valueOf(currSim.charAt(currSim.length() - parent - 1)) + parString;
+                    }
+                    int nodeParents = Integer.parseInt(parString, 2);
+                    rand = random.nextDouble();
+                    if (rand <= node.getCpt()[nodeParents]) {
+                        currSim = "1" + currSim;
+                    } else {
+                        currSim = "0" + currSim;
+                    }
+                }
+            }
+            // Put into the array of simulations
+            sims.add(currSim);
+        }
+        return sims;
+    }
+
+    public static double rsQuery(ArrayList<String> sims, ArrayList<Integer> queryVars, ArrayList<Integer> evidenceVars) {
+        double queryAccumulator = 0;
+        double evidenceAccumulator = 0;
+        if (evidenceVars.isEmpty()) {
+            evidenceAccumulator = sims.size();
+        }
+        boolean queryHolds = true;
+        boolean evidenceHolds = true;
+        for (String simulation : sims) {
+            queryHolds = true;
+            evidenceHolds = true;
+            for (Integer queryVar : queryVars) {
+                if (queryVar != null) {
+                    int varIndex = simulation.length() - queryVars.indexOf(queryVar) - 1; // index of the item is the variable's number
+                    int varPol = queryVar;      // element is the polarity
+                    if (!String.valueOf(simulation.charAt(varIndex)).equals(Integer.toString(varPol))) {
+                        queryHolds = false;
+                        break;
+                    }
+                }
+            }
+            if (!evidenceVars.isEmpty()) {
+                for (Integer eviVar : evidenceVars) {    // for each variable in the joint distribution
+                    if (eviVar != null) {
+                        int eviIndex = simulation.length() - evidenceVars.indexOf(eviVar) - 1; // index of the item is the variable's number
+                        int eviPol = eviVar;      // element is the polarity
+                        if (!String.valueOf(simulation.charAt(eviIndex)).equals(Integer.toString(eviPol))) {
+                            evidenceHolds = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (queryHolds) {
+                queryAccumulator = queryAccumulator + 1;
+            }
+            if (evidenceHolds && !evidenceVars.isEmpty()) {
+                evidenceAccumulator = evidenceAccumulator + 1;
+            }
+        }
+        if (evidenceAccumulator == 0) {
+            evidenceAccumulator = sims.size();
+        }
+        return (queryAccumulator / evidenceAccumulator);
+    }
+
+    public static String printGUI(Scanner scn) {
+        String response = ""; 
+        System.out.println("============================");
+        System.out.println("PEARL'S BAYES NET INTERFACE");
+        System.out.println("Input Query");
+        System.out.println("- Begin query with 'bnet'\n" +
+                        "- Give variables as NP, where N = variable number and P = Polarity (t/f)\n" +
+                        "- Separate query and evidence variables with 'given'\n" +
+                        "- Ex. bnet 0t 2f given 4f\n" +
+                        "VARIABLE NUMBERS:\n" +
+                        "0. Burglar\n" + 
+                        "1. Earthquake\n" + 
+                        "2. Alarm\n" +
+                        "3. John Calls\n" + 
+                        "4. Mary Calls\n");
+        System.out.println("Input:");
+        response = scn.nextLine();        
+        return response;
+    }
+
+    public static void parseInput(String input, ArrayList<Integer> queryVars, ArrayList<Integer> evidenceVars) {
+        String[] query = input.split(" ");
+        boolean isQueryVar = true;
+        int[] queries = new int[5];
+        Arrays.fill(queries, -1);
+        int[] evidence = new int[5];
+        Arrays.fill(evidence, -1);
+        for (int i = 0; i < query.length; i++) {
+            // System.out.println(query[i]);
+            if (query[i].equals("given")) {
+                isQueryVar = false;
+            } else if (query[i].equals("bnet")) {
+                // nothing :)
+            } else {    // we've reached a variable
+                int varNum = Integer.parseInt(String.valueOf(query[i].charAt(0)));  // number of the query
+                if (query[i].charAt(1) == 't' && isQueryVar) {
+                    queries[varNum] = 1;
+                } else if (query[i].charAt(1) == 'f' && isQueryVar) {
+                    queries[varNum] = 0;
+                } else if (query[i].charAt(1) == 't' && !isQueryVar) {
+                    queries[varNum] = 1;
+                    evidence[varNum] = 1;
+                } else if (query[i].charAt(1) == 'f' && !isQueryVar) {
+                    queries[varNum] = 0;
+                    evidence[varNum] = 0;
+                }
+            }
+        }
+        // System.out.println(Arrays.toString(queries));
+        // System.out.println(Arrays.toString(evidence));
+        for (int i = 0; i < queries.length; i++) {
+            if (queries[i] == -1) {
+                queryVars.add(null);
+            } else {
+                queryVars.add(queries[i]);
+            }
+        }
+        for (int i = 0; i < evidence.length; i++) {
+            if (evidence[i] == -1) {
+                evidenceVars.add(null);
+            } else {
+                evidenceVars.add(evidence[i]);
+            }
+        }
     }
 }
