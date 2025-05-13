@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class App {
@@ -28,5 +29,8 @@ public class App {
         double discount = 0.95;
 
         ///// Value Iteration
+        ValueRunner valueIteration = new ValueRunner();
+        Action[] VIPolicy = valueIteration.valueIteration(rewards, discount, 0.000001);
+        System.out.println(Arrays.toString(VIPolicy));
     }
 }

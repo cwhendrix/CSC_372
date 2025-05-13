@@ -48,39 +48,65 @@ public class ValueRunner {
         return 0.0;
     }
 
-    private double[] valueIteration(int[] rewards, double discount, double error) {
+    public Action[] valueIteration(int[] rewards, double discount, double error) {
         double[] utilities = new double[16];
-        for (int i = 0; i < utilities.length; i++) {
-            utilities[i] = 0;
-        }
-        double[] utilitiesUpdate = new double[16];
-        for (int i = 0; i < utilitiesUpdate.length; i++) {
-            utilitiesUpdate[i] = 0;
+        
+        double[] utilitiesPrime = new double[16];
+        for (int i = 0; i < utilitiesPrime.length; i++) {
+            utilitiesPrime[i] = 0;
         }
 
-        double delta = 0;
-        while (delta < (error * ((1.0 - discount) / discount))) {
+        double delta = 1;
+        while (delta > ((error * (1.0 - discount)) / discount)) {
             for (int i = 0; i < utilities.length; i++) {
-                utilities[i] = utilitiesUpdate[i];
+                utilities[i] = utilitiesPrime[i];
             }
+            delta = 0;
             for (State state : State.values()) {
                 double[] sumOverActions = new double[4];
+                double currBestUtility = -1;
+                Action currBestAction = Action.UP;
+                State currBestGoal = State.s0;
                 for (Action action : Action.values()) {
                     sumOverActions[action.ordinal()] = 0;
                     for (State currGoal : State.values()) {
                         sumOverActions[action.ordinal()] += transition(currGoal, state, action) * utilities[currGoal.ordinal()];
+                        if (sumOverActions[action.ordinal()] > currBestUtility) {
+                        currBestUtility = sumOverActions[action.ordinal()];
+                        currBestAction = action;
+                        currBestGoal = currGoal;
+                    }
                     }
                 }
-                utilitiesUpdate[state.ordinal()] = rewards[state.ordinal()] + (discount * Arrays.stream(sumOverActions).max().getAsDouble());
-                if (delta < (utilitiesUpdate[state.ordinal()] - utilitiesUpdate[state.ordinal()])) {
-                    delta = utilitiesUpdate[state.ordinal()] - utilitiesUpdate[state.ordinal()];
+                // System.out.println("BEST ACTION FOR " + state + ": " + currBestAction + ", UTILITY " + currBestUtility);
+                utilitiesPrime[state.ordinal()] = rewards[state.ordinal()] + (discount * transition(currBestGoal, state, currBestAction));
+                // System.out.println("UTILITIES PRIME FOR STATE " + state + ": " + utilitiesPrime[state.ordinal()]);
+                if (Math.abs(utilitiesPrime[state.ordinal()] - utilities[state.ordinal()]) > delta) {
+                    delta = (utilitiesPrime[state.ordinal()] - utilities[state.ordinal()]);
                 }
             }
+            // System.out.println("DELTA = " + delta);
+            // System.out.println("(error * (1.0 - discount)) / discount) = " + ((error * (1.0 - discount)) / discount));
         }
 
+        Action[] policy = new Action[16];
+        for (State state : State.values()) {
+            policy[state.ordinal()] = Action.UP;
+            double[] valueofActions = new double[4];
+            double currBestUtility = -1;
+            Action currBestAction = Action.UP;
+            for (Action action : Action.values()) {
+                for (State goalState : State.values()) {
+                    valueofActions[action.ordinal()] += transition(goalState, state, action) * utilities[goalState.ordinal()];
+                }
+                if (valueofActions[action.ordinal()] > currBestUtility) {
+                    currBestUtility = valueofActions[action.ordinal()];
+                    currBestAction = action;
+                }
+            }
+            policy[state.ordinal()] = currBestAction;
+        }
 
-
-
-        return null;
+        return policy;
     }
 }
