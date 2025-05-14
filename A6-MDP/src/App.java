@@ -30,7 +30,12 @@ public class App {
 
         ///// Value Iteration
         ValueRunner valueIteration = new ValueRunner();
-        Action[] VIPolicy = valueIteration.valueIteration(rewards, discount, 0.000001);
-        System.out.println(Arrays.toString(VIPolicy));
+        // Action[] VIPolicy = valueIteration.valueIteration(rewards, discount, 0.000001);
+        // System.out.println("VALUE ITERATION: " + Arrays.toString(VIPolicy));
+
+        ///// Policy Iteration
+        PolicyRunner policyIteration = new PolicyRunner();
+        Action[] PIPolicy = policyIteration.policyIteration(rewards, discount, 10000);
+        System.out.println("POLICY ITERATION: " + Arrays.toString(PIPolicy));
     }
 }

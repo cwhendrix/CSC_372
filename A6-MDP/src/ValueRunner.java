@@ -72,10 +72,10 @@ public class ValueRunner {
                     for (State currGoal : State.values()) {
                         sumOverActions[action.ordinal()] += transition(currGoal, state, action) * utilities[currGoal.ordinal()];
                         if (sumOverActions[action.ordinal()] > currBestUtility) {
-                        currBestUtility = sumOverActions[action.ordinal()];
-                        currBestAction = action;
-                        currBestGoal = currGoal;
-                    }
+                            currBestUtility = sumOverActions[action.ordinal()];
+                            currBestAction = action;
+                            currBestGoal = currGoal;
+                        }
                     }
                 }
                 // System.out.println("BEST ACTION FOR " + state + ": " + currBestAction + ", UTILITY " + currBestUtility);
@@ -93,7 +93,7 @@ public class ValueRunner {
         for (State state : State.values()) {
             policy[state.ordinal()] = Action.UP;
             double[] valueofActions = new double[4];
-            double currBestUtility = -1;
+            double currBestUtility = -2;
             Action currBestAction = Action.UP;
             for (Action action : Action.values()) {
                 for (State goalState : State.values()) {
