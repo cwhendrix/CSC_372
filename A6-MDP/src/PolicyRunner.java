@@ -63,7 +63,7 @@ public class PolicyRunner {
                         total += transition(statePrime, state, a) * utility[statePrime.ordinal()];
                     }
                     utility[state.ordinal()] = rewards[state.ordinal()] + discount * total;
-                    System.out.println("UTILITY FOR STATE " + state + ": " + utility[state.ordinal()]);
+                    // System.out.println("UTILITY FOR STATE " + state + ": " + utility[state.ordinal()]);
                 }
 
                 boolean unchanged = true;
@@ -83,7 +83,7 @@ public class PolicyRunner {
                         }
                     }
                     if (currBestUtility > sumOverActions[policy[state.ordinal()].ordinal()]) {
-                        System.out.println("NEW UTILITY FOR STATE " + state + ": " + currBestUtility + " > " + sumOverActions[policy[state.ordinal()].ordinal()]);
+                        // System.out.println("NEW UTILITY FOR STATE " + state + ": " + currBestUtility + " > " + sumOverActions[policy[state.ordinal()].ordinal()]);
                         policy[state.ordinal()] = currBestAction;
                         unchanged = false;
                     }
